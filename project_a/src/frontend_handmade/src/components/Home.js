@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Java from "./Java";
 
 function Copyright() {
     return (
@@ -20,7 +19,6 @@ function Copyright() {
             <Link color="inherit" href="https://mui.com/">
                 Your Website
             </Link>{' '}
-            <Java/>
             {new Date().getFullYear()}
             {'.'}
         </Typography>
