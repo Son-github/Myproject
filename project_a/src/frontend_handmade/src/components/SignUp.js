@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +12,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from "axios";
 
 function Copyright(props) {
     return (
@@ -26,22 +27,66 @@ function Copyright(props) {
     );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
-
 export default function SignUp() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+    const [first_Name, setFirst_Name] = useState();
+    const [last_Name, setLast_Name] = useState();
+    const [user_Email, setUser_Email] = useState();
+    const [user_Password, setUser_Password] = useState();
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
+    async function getUser() {
+        await axios
+            .get('/signup')
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const handleChange_firstName = (e) => {
+        e.preventDefault();
+        setFirst_Name(e.target.value);
+    }
+
+    const handleChange_lastName = (e) => {
+        e.preventDefault();
+        setLast_Name(e.target.value);
+    }
+
+    const handleChange_userEmail = (e) => {
+        e.preventDefault();
+        setUser_Email(e.target.value);
+    }
+
+    const handleChange_userPassword = (e) => {
+        e.preventDefault();
+        setUser_Password(e.target.value);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        await axios
+            .post('/signup', {
+                firstName: first_Name,
+                lastName: last_Name,
+                userEmail: user_Email,
+                userPassword: user_Password
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     return (
-        <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -68,6 +113,8 @@ export default function SignUp() {
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
+                                    value={first_Name}
+                                    onChange={handleChange_firstName}
                                     autoFocus
                                 />
                             </Grid>
@@ -79,6 +126,8 @@ export default function SignUp() {
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="family-name"
+                                    value={last_Name}
+                                    onChange={handleChange_lastName}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -89,6 +138,8 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    value={user_Email}
+                                    onChange={handleChange_userEmail}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -100,6 +151,8 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={user_Password}
+                                    onChange={handleChange_userPassword}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -128,6 +181,5 @@ export default function SignUp() {
                 </Box>
                 <Copyright sx={{ mt: 5 }} />
             </Container>
-        </ThemeProvider>
     );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from "axios";
 
 function Copyright(props) {
     return (
@@ -31,13 +32,48 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 function SignIn() {
-    const handleSubmit = (event) => {
+    const [user_Email, setUserEmail] = useState();
+    const [user_Password, setUserPassword] = useState();
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
+    async function getUser() {
+        await axios
+            .get('/signin')
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const handleChange_userEmail = (e) => {
+        e.preventDefault();
+        setUserEmail(e.target.value);
+    }
+
+    const handleChange_userPassword = (e) => {
+        e.preventDefault();
+        setUserPassword(e.target.value);
+    }
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        await axios
+            .post('/signin', {
+                userEmail: user_Email,
+                userPassword: user_Password
+            })
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
     };
 
     return (
@@ -67,6 +103,8 @@ function SignIn() {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
+                            value={user_Email}
+                            onChange={handleChange_userEmail}
                             autoFocus
                         />
                         <TextField
@@ -78,6 +116,8 @@ function SignIn() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={user_Password}
+                            onChange={handleChange_userPassword}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
