@@ -18,6 +18,7 @@ public record UserAccountDto(
         LocalDateTime createAt
 ) {
 
+
     public static UserAccountDto of(String userEmail, String userPassword, String firstName, String lastName) {
         return new UserAccountDto(null, userEmail, userPassword, firstName, lastName, null);
     }

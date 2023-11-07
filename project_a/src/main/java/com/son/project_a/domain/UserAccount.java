@@ -2,18 +2,17 @@ package com.son.project_a.domain;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-@Setter
-@Getter
-@ToString
+@Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode를 한번에 설정해줌.
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +30,8 @@ public class UserAccount {
 
     protected UserAccount() {}
 
-    private UserAccount(String userEmail, String userPassword, String firstName, String lastName) {
+    public UserAccount(String userEmail, String userPassword, String firstName, String lastName) {
+        this.createdAt = LocalDateTime.now();
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.firstName = firstName;
