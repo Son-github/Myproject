@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 // 사용하지 않는 의존성 제거 control+option+o
 
 @DisplayName("jpa 연결 테스트")
-@Import(JpaConfig.class)
 @DataJpaTest
 public class JpaRepositoryTest {
 
@@ -40,7 +41,7 @@ public class JpaRepositoryTest {
         // Then
         assertThat(userAccountList)
                 .isNotNull()
-                .hasSize(100);
+                .hasSize(101);
     }
 
     @DisplayName("insert")
@@ -50,9 +51,13 @@ public class JpaRepositoryTest {
         long prevUserAccount = userAccountRepository.count();
 
         // When
-        userAccountRepository.save(UserAccount.of("key@gmail.com", "test", "key", "port"));
+        UserAccount userAccount = UserAccount.of("key@gmail.com", "test", "key", "port");
+        userAccount.setCreatedAt(LocalDateTime.now());
+        userAccountRepository.save(userAccount);
         long AfterUserAccount = userAccountRepository.count();
 
+
+        log.info("날짜 입력됐나요?: {}", userAccountRepository.findById(101L));
         // Then
         assertThat(AfterUserAccount)
                 .isEqualTo(prevUserAccount+1);
@@ -87,5 +92,12 @@ public class JpaRepositoryTest {
         // Then
         assertThat(userAccountRepository.count())
                 .isEqualTo(preciousUserAccountCount-1);
+    }
+
+    @Test
+    void givenUserAccountEmail_when_thenReturnTrue() {
+        log.info("ctatem2o@yahoo.com이 존재하나요?: {}",userAccountRepository.existsByUserEmail("ctatem2o@yahoo.com"));
+        assertThat(userAccountRepository.existsByUserEmail("ctatem2o@yahoo.com"))
+                .isEqualTo(true);
     }
 }
