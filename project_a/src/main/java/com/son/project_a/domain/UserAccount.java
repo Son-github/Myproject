@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userAccountId;
 
     @Column private String userEmail;
     @Column private String userPassword;
