@@ -1,7 +1,6 @@
 import * as React from "react";
 import {Box, CssVarsProvider} from "@mui/joy";
 import CssBaseline from "@mui/material/CssBaseline";
-import Nav from "./Nav";
 import Stack from "@mui/joy/Stack";
 import Search from "./Search";
 import HeaderSection from "./HeaderSection";
@@ -24,7 +23,9 @@ export default function Home() {
             >
                 <Stack spacing={2} sx={{ px: { xs: 2, md: 4 }, pt: 2 }}>
                     <HeaderSection />
-                    <Search />
+                    <Search
+                        value={"Meal Kit"}
+                    />
                     <Filters />
                     <Stack spacing={2} sx={{ overflow: 'auto' }}>
                         <RentalCard

@@ -38,32 +38,6 @@ export default function Filters() {
                 <Stack useFlexGap spacing={3} sx={{ p: 2 }}>
                     <DialogTitle>Filters</DialogTitle>
                     <ModalClose />
-                    <Box
-                        sx={{
-                            display: 'grid',
-                            gridTemplateColumns: '1fr auto 1fr',
-                            gridTemplateRows: 'auto auto',
-                            gap: 1,
-                        }}
-                    >
-                        <FormLabel htmlFor="filters-start-date">Start date</FormLabel>
-                        <div />
-                        <FormLabel htmlFor="filters-end-date">End date</FormLabel>
-
-                        <Input
-                            id="filters-start-date"
-                            type="date"
-                            placeholder="Jan 6 - Jan 13"
-                            aria-label="Date"
-                        />
-                        <Box sx={{ alignSelf: 'center' }}>-</Box>
-                        <Input
-                            id="filters-end-date"
-                            type="date"
-                            placeholder="Jan 6 - Jan 13"
-                            aria-label="Date"
-                        />
-                    </Box>
                     <FormControl>
                         <FormLabel>Price range</FormLabel>
                         <Slider

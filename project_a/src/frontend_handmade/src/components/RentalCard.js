@@ -10,10 +10,8 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import FmdGoodRoundedIcon from '@mui/icons-material/FmdGoodRounded';
-import KingBedRoundedIcon from '@mui/icons-material/KingBedRounded';
-import WifiRoundedIcon from '@mui/icons-material/WifiRounded';
 import Star from '@mui/icons-material/Star';
+import TagIcon from '@mui/icons-material/Tag';
 
 type RentalCardProps = {
     category: React.ReactNode;
@@ -109,7 +107,7 @@ export default function RentalCard({
                             <Link
                                 overlay
                                 underline="none"
-                                href="#interactive-card"
+                                href="https://www.naver.com/" // {Linked}
                                 sx={{ color: 'text.primary' }}
                             >
                                 {title}
@@ -137,14 +135,14 @@ export default function RentalCard({
                     flexWrap="wrap"
                     sx={{ my: 0.25 }}
                 >
-                    <Typography level="body-xs" startDecorator={<FmdGoodRoundedIcon />}>
-                        Collingwood VIC
+                    <Typography level="body-xs" startDecorator={<TagIcon />}>
+                        Category
                     </Typography>
-                    <Typography level="body-xs" startDecorator={<KingBedRoundedIcon />}>
-                        1 bed
+                    <Typography level="body-xs" startDecorator={<TagIcon />}>
+                        Category
                     </Typography>
-                    <Typography level="body-xs" startDecorator={<WifiRoundedIcon />}>
-                        Wi-Fi
+                    <Typography level="body-xs" startDecorator={<TagIcon />}>
+                        Category
                     </Typography>
                 </Stack>
                 <Stack direction="row" sx={{ mt: 'auto' }}>
@@ -164,7 +162,7 @@ export default function RentalCard({
                         4.0
                     </Typography>
                     <Typography level="title-lg" sx={{ flexGrow: 1, textAlign: 'right' }}>
-                        <strong>$540</strong> <Typography level="body-md">total</Typography>
+                        <strong>Price</strong> <Typography level="body-md"><strong>원</strong></Typography>
                     </Typography>
                 </Stack>
             </CardContent>
