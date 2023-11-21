@@ -23,9 +23,7 @@ export default function Home() {
             >
                 <Stack spacing={2} sx={{ px: { xs: 2, md: 4 }, pt: 2 }}>
                     <HeaderSection />
-                    <Search
-                        value={"Meal Kit"}
-                    />
+                    <Search />
                     <Filters />
                     <Stack spacing={2} sx={{ overflow: 'auto' }}>
                         <RentalCard
