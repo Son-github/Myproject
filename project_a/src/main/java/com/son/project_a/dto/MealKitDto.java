@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 public record MealKitDto(
 
-        Long mealKitId,
+        Long id,
         String mName,
-        Long mPrice,
+        String mPrice,
         String mCategory,
-        Long mStock,
+        int mStock,
         String mSite,
         String mContent,
         String mImage,
@@ -18,8 +18,8 @@ public record MealKitDto(
 ) {
 
     public static MealKitDto of(
-            String mName, Long mPrice, String mCategory,
-            Long mStock, String mSite, String mContent, String mImage
+            String mName, String mPrice, String mCategory,
+            int mStock, String mSite, String mContent, String mImage
     ){
         return new MealKitDto(
                 null, mName, mPrice, mCategory, mStock,
@@ -28,7 +28,7 @@ public record MealKitDto(
 
     public static MealKitDto from(MealKit entity) {
         return new MealKitDto(
-                entity.getMealKitId(),
+                entity.getId(),
                 entity.getMName(),
                 entity.getMPrice(),
                 entity.getMCategory(),

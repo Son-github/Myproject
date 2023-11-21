@@ -10,7 +10,7 @@ public record UserAccountDto(
         * 3번의 통신을 하지 않고 3개의 데이터를 담고있는 dto를 만들어 API 1번의 호출로 바꾸는 것.
         *
         * */
-        Long userAccountId,
+        Long id,
         String userEmail,
         String userPassword,
         String firstName,
@@ -23,13 +23,13 @@ public record UserAccountDto(
         return new UserAccountDto(null, userEmail, userPassword, firstName, lastName, null);
     }
 
-    public static UserAccountDto of(Long UserAccountId, String userEmail, String userPassword, String firstName, String lastName, LocalDateTime createAt) {
-        return new UserAccountDto(UserAccountId, userEmail, userPassword, firstName, lastName, createAt);
+    public static UserAccountDto of(Long id, String userEmail, String userPassword, String firstName, String lastName, LocalDateTime createAt) {
+        return new UserAccountDto(id, userEmail, userPassword, firstName, lastName, createAt);
     }
 
     public static UserAccountDto from(UserAccount entity) {
         return new UserAccountDto(
-                entity.getUserAccountId(),
+                entity.getId(),
                 entity.getUserEmail(),
                 entity.getUserPassword(),
                 entity.getFirstName(),
