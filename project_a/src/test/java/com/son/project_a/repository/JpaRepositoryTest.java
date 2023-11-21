@@ -1,6 +1,8 @@
 package com.son.project_a.repository;
 
 import com.son.project_a.config.JpaConfig;
+import com.son.project_a.domain.MealKit;
+import com.son.project_a.domain.MealKitComment;
 import com.son.project_a.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,9 +27,17 @@ public class JpaRepositoryTest {
     private static Logger log = LoggerFactory.getLogger(JpaRepositoryTest.class); // log를 띄우기 위해 사용
 
     private final UserAccountRepository userAccountRepository;
+    private final MealKitRepository mealKitRepository;
 
-    public JpaRepositoryTest(@Autowired UserAccountRepository userAccountRepository) {
+    private final MealKitCommentRepository mealKitCommentRepository;
+
+    public JpaRepositoryTest(
+            @Autowired UserAccountRepository userAccountRepository,
+            @Autowired MealKitRepository mealKitRepository,
+            @Autowired MealKitCommentRepository mealKitCommentRepository) {
         this.userAccountRepository = userAccountRepository;
+        this.mealKitRepository = mealKitRepository;
+        this.mealKitCommentRepository = mealKitCommentRepository;
     }
 
     @DisplayName("select")
@@ -37,11 +47,15 @@ public class JpaRepositoryTest {
 
         // When
         List<UserAccount> userAccountList = userAccountRepository.findAll(); // 모든 것 찾기
+        List<MealKit> mealKitList = mealKitRepository.findAll();
 
         // Then
         assertThat(userAccountList)
                 .isNotNull()
-                .hasSize(101);
+                .hasSize(100);
+        assertThat(mealKitList)
+                .isNotNull()
+                .hasSize(100);
     }
 
     @DisplayName("insert")
@@ -52,15 +66,24 @@ public class JpaRepositoryTest {
 
         // When
         UserAccount userAccount = UserAccount.of("key@gmail.com", "test", "key", "port");
+        MealKit mealKit = MealKit.of("Test", "3000원", "라볶이", 5, "www.test.co.kr", "black of the son", "www.image.co.kr");
         userAccount.setCreatedAt(LocalDateTime.now());
         userAccountRepository.save(userAccount);
+        mealKitRepository.save(mealKit);
+
         long AfterUserAccount = userAccountRepository.count();
 
 
-        log.info("날짜 입력됐나요?: {}", userAccountRepository.findById(101L));
+
+        log.info("날짜 입력됐나요?: {}", userAccount.getCreatedAt());
+        log.info("meal_kit에 입력된 자료: {}", mealKitRepository.findById(1L));
+        log.info("meal_kit에 입력된 자료의 날짜는? {}", mealKit.getCreatedAt());
         // Then
         assertThat(AfterUserAccount)
                 .isEqualTo(prevUserAccount+1);
+
+        assertThat(mealKit.getMName())
+                .isEqualTo("Test");
     }
 
     @DisplayName("update")
