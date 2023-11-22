@@ -1,9 +1,5 @@
 package com.son.project_a.response;
 
-import com.son.project_a.domain.MealKit;
-import com.son.project_a.domain.MealKitComment;
-import com.son.project_a.domain.UserAccount;
-import com.son.project_a.dto.MealKitCommentDto;
 import com.son.project_a.dto.MealKitWithCommentsDto;
 
 import java.io.Serializable;
