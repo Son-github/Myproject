@@ -2,7 +2,6 @@ package com.son.project_a.dto;
 
 import com.son.project_a.domain.MealKit;
 import com.son.project_a.domain.MealKitComment;
-import com.son.project_a.domain.UserAccount;
 
 import java.time.LocalDateTime;
 

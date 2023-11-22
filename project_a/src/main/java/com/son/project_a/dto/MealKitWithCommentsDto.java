@@ -1,7 +1,6 @@
 package com.son.project_a.dto;
 
 import com.son.project_a.domain.MealKit;
-import com.son.project_a.response.MealKitWithCommentsResponse;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
