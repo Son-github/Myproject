@@ -27,8 +27,8 @@ public class UserAccountController {
         if (userAccountRepository.existsByUserEmail(userAccount.getUserEmail())){
             log.info("이미 있엉!");
         } else {
-            userAccount.setCreatedAt(LocalDateTime.now());
             userAccountService.saveUserAccount(userAccount);
+            log.info("잘 들어왔니? {}", userAccount.getCreatedAt());
         }
     }
 
