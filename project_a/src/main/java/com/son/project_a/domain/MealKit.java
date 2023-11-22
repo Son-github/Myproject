@@ -4,12 +4,8 @@ package com.son.project_a.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
