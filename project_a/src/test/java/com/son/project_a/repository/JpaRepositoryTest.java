@@ -1,8 +1,6 @@
 package com.son.project_a.repository;
 
-import com.son.project_a.config.JpaConfig;
 import com.son.project_a.domain.MealKit;
-import com.son.project_a.domain.MealKitComment;
 import com.son.project_a.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -56,6 +52,7 @@ public class JpaRepositoryTest {
         assertThat(mealKitList)
                 .isNotNull()
                 .hasSize(100);
+
     }
 
     @DisplayName("insert")
