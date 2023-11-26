@@ -1,5 +1,6 @@
 package com.son.project_a.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -18,8 +19,10 @@ public class MealKitComment extends AuditingFields{
     private Long id;
 
     @Column(length = 1000) private String title;
-    @ManyToOne(optional = false) private MealKit mealKit; // 밀키트(ID)
-    @ManyToOne(optional = false) private UserAccount userAccount; // 작성자(ID)
+    @ManyToOne(optional = false) @JsonIgnore
+    private MealKit mealKit; // 밀키트(ID)
+    @ManyToOne(optional = false) @JsonIgnore
+    private UserAccount userAccount; // 작성자(ID)
     @Column(length = 60000) private String content;
 
 
