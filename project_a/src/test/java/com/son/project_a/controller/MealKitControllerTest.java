@@ -38,7 +38,7 @@ class MealKitControllerTest {
     @Test
     void givenNothing_whenRequestingMealKitView_thenReturnMealKitsView() throws Exception {
         // Given
-        given(mealKitService.searchByMealKitNames(eq(null), eq(null), any(Pageable.class))).willReturn(Page.empty());
+        //given(mealKitService.searchByMealKitNames(eq(null), eq(null), any(Pageable.class))).willReturn(Page.empty());
 
         // When & Then
         mvc.perform(get("/mealKits"))
