@@ -18,7 +18,7 @@ export default function Search(){
 
     async function getSearchValue() {
         await axios
-            .get('/home')
+            .get('/')
             .then((res) => {
                 console.log(res.data);
             })
@@ -36,7 +36,7 @@ export default function Search(){
         event.preventDefault();
 
         await axios
-            .post('/home', {
+            .post('/', {
                 searchValue: search_Value
             })
             .then((res) => {

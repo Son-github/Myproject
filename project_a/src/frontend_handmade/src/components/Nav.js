@@ -6,8 +6,6 @@ import {Box, IconButton} from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -25,7 +23,7 @@ function Nav() {
     }
 
     const toGoHome = () => {
-        navigate("/home")
+        navigate("/mealKits")
     };
 
     const toGoSignup = () => {

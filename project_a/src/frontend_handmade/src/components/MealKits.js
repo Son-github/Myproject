@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useEffect, useState} from "react";
 import {Box, CssVarsProvider} from "@mui/joy";
 import CssBaseline from "@mui/material/CssBaseline";
 import Stack from "@mui/joy/Stack";
@@ -7,8 +8,36 @@ import HeaderSection from "./HeaderSection";
 import Filters from "./Filters";
 import RentalCard from "./RentalCard";
 import Pagination from "./Pagination";
+import axios from "axios";
 
-export default function Home() {
+export default function MealKits(){
+
+    const [mealKitsList, setMealKitsList] = useState([]);
+
+
+    useEffect( () => {
+        getMealKitsValue();
+    }, [])
+
+    async function getMealKitsValue() {
+        await axios
+            .get('/mealKits')
+            .then((res) => {
+                setMealKitsList(res.data);
+                console.log(res);
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log("실패");
+            })
+    }
+
+    console.log(mealKitsList.map( (res => {
+        return res.json;
+    })));
+
+
+    // TODO: List 어떻게 표현할꺼임?
     return (
         <CssVarsProvider disableTransitionOnChange>
             <CssBaseline />
@@ -26,8 +55,16 @@ export default function Home() {
                     <Search />
                     <Filters />
                     <Stack spacing={2} sx={{ overflow: 'auto' }}>
+                        {/*{Object.entries(mealKitsList).map((entire => {
+                            return <RentalCard
+                                title={entire.}
+                                category="Entire apartment rental in Collingwood"
+                                rareFind
+                                image="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400"
+                            />
+                        }))}*/}
                         <RentalCard
-                            title="A Stylish Apt, 5 min walk to Queen Victoria Market"
+                            title="ttt"
                             category="Entire apartment rental in Collingwood"
                             rareFind
                             image="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400"
