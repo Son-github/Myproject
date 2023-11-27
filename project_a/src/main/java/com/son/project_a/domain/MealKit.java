@@ -28,7 +28,7 @@ public class MealKit extends AuditingFields {
     private int mStock;
     @Column(length = 65535)
     private String mSite;
-    @Column
+    @Column(length = 65535)
     private String mContent;
     @Column(length = 65535)
     private String mImage;
