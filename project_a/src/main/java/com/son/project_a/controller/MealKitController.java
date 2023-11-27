@@ -44,7 +44,7 @@ public class MealKitController {
 
 
     @GetMapping
-    public List<MealKit> mealKits(
+    public Map<String, Object> mealKits(
             @RequestParam(required = false) String searchValue,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -63,10 +63,10 @@ public class MealKitController {
             mealKits = mealKitPage.getContent();
             Map<String, Object> response = new HashMap<String, Object>();
             response.put("mealKits", mealKits);
-            //response.put("totalPages", mealKitPage.getTotalPages());
+            response.put("totalPages", mealKitPage.getTotalPages());
 
             log.info("response: {}", response);
-            return mealKits;
+            return response;
         } catch (Exception e) {
             throw new ServerError(e.getMessage());
         }
