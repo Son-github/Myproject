@@ -6,7 +6,18 @@ import Typography from '@mui/joy/Typography';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
-export default function Pagination() {
+type PaginationProps = {
+    count: int;
+    page: int;
+    onChange: React.EventHandler;
+}
+
+export default function Pagination({
+    count,
+    page,
+    onChange
+                                   }: PaginationProps) {
+
     return (
         <div>
             <Box
@@ -61,9 +72,9 @@ export default function Pagination() {
                 </Button>
 
                 <Box sx={{ flex: 1 }} />
-                {['1', '2', '3', '…', '8', '9', '10'].map((page) => (
+                {Array(count).map((page) => (
                     <IconButton
-                        key={page}
+                        key={page∑}
                         size="sm"
                         variant={Number(page) ? 'plain' : 'soft'}
                         color="neutral"

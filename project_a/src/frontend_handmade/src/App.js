@@ -5,6 +5,7 @@ import Nav from './components/Nav'
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import MealKits from "./components/MealKits";
+import Details from "./components/Details";
 
 class App extends React.Component {
   render () {
@@ -13,9 +14,9 @@ class App extends React.Component {
             <Nav />
             <div className="App">
                   <Routes>
-                    <Route path="/MealKits" element={<MealKits />}/>
-                    <Route path="/signin" element={<SignIn />} />
-                    <Route path="/signup" element={<SignUp />} />
+                      <Route path="/MealKits" element={<MealKits />}/>
+                      <Route path="/signin" element={<Details />} /> //TODO: signup으로 바꿔줭!
+                      <Route path="/signup" element={<SignUp />} />
                   </Routes>
             </div>
         </React.Fragment>

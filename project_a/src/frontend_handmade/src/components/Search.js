@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import Input from '@mui/joy/Input';
@@ -6,61 +6,35 @@ import Stack from '@mui/joy/Stack';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Typography from '@mui/joy/Typography';
 import axios from "axios";
+import MealKitService from "../MealKitService";
 
+type SearchProps = {
+    search_Value: string;
+    handleChangeSearchValue: React.EventHandler;
+    findByMealKits: React.EventHandler;
+}
 
-export default function Search(){
+export default function Search({
 
-    const [search_Value, setSearchValue] = useState();
+    search_Value,
+    handleChangeSearchValue,
+    findByMealKits
 
-    useEffect(() => {
-        getSearchValue();
-    })
-
-    async function getSearchValue() {
-        await axios
-            .get('/')
-            .then((res) => {
-                console.log(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
-    const handleChangeSearchValue = (e) => {
-        e.preventDefault();
-        setSearchValue(e.target.value);
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        await axios
-            .post('/', {
-                searchValue: search_Value
-            })
-            .then((res) => {
-                console.log(res.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
+                               }: SearchProps) {
 
     return (
         <div>
-            <Stack spacing={1} direction="row" sx={{ mb: 2 }} onSubmit={handleSubmit}>
+            <Stack spacing={1} direction="row" sx={{ mb: 2 }}>
                 <FormControl sx={{ flex: 1 }}>
                     <Input
                         placeholder="Search"
-                        value={search_Value}
                         startDecorator={<SearchRoundedIcon />}
+                        value={search_Value}
                         onChange={handleChangeSearchValue}
                         aria-label="Search"
                     />
                 </FormControl>
-                <Button type="submit" variant="solid" color="primary">
+                <Button type="button" variant="solid" color="primary" onClick={findByMealKits}>
                     Search
                 </Button>
             </Stack>

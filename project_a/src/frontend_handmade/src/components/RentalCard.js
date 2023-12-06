@@ -19,6 +19,7 @@ type RentalCardProps = {
     liked?: boolean;
     rareFind?: boolean;
     title: React.ReactNode;
+    link: string;
 };
 
 export default function RentalCard({
@@ -27,6 +28,7 @@ export default function RentalCard({
                                        rareFind = false,
                                        liked = false,
                                        image,
+                                       link
                                    }: RentalCardProps) {
     const [isLiked, setIsLiked] = React.useState(liked);
     return (
@@ -107,7 +109,7 @@ export default function RentalCard({
                             <Link
                                 overlay
                                 underline="none"
-                                href="https://www.naver.com/" // {Linked}
+                                href={link} // {Linked}
                                 sx={{ color: 'text.primary' }}
                             >
                                 {title}
