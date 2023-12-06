@@ -64,7 +64,7 @@ class MealKitServiceTest {
         given(mealKitRepository.findByMName(searchKeyword, pageable)).willReturn(Page.empty());
 
         // When
-        Page<MealKitDto> mealKits = mealKitService.searchByMealKitNames(searchType, searchKeyword, pageable);
+        Page<MealKitDto> mealKits = mealKitService.searchMealKits(searchType, searchKeyword, pageable);
 
         // Then
         assertThat(mealKits).isEmpty();

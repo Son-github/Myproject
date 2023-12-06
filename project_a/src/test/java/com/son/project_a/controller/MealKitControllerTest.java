@@ -38,13 +38,13 @@ class MealKitControllerTest {
     @Test
     void givenNothing_whenRequestingMealKitView_thenReturnMealKitsView() throws Exception {
         // Given
-        //given(mealKitService.searchByMealKitNames(eq(null), eq(null), any(Pageable.class))).willReturn(Page.empty());
+        //given(mealKitService.searchMealKits(eq(null), eq(null), any(Pageable.class))).willReturn(Page.empty());
 
         // When & Then
         mvc.perform(get("/mealKits"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("mealKits"));
-        then(mealKitService).should().searchByMealKitNames(eq(null), eq(null), any(Pageable.class));
+        then(mealKitService).should().searchMealKits(eq(null), eq(null), any(Pageable.class));
     }
 
     @DisplayName("[view][GET] 밀키트 상세 페이지 - 정상 호출")
