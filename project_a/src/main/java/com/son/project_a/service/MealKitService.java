@@ -25,16 +25,14 @@ public class MealKitService {
 
 
     @Transactional(readOnly = true)
-    public Page<MealKitDto> searchByMealKitNames(SearchType searchType, String searchKeyword, Pageable pageable) {
+    public Page<MealKitDto> searchMealKits(SearchType searchType, String searchKeyword, Pageable pageable) {
         if (searchKeyword == null || searchKeyword.isBlank()) {
             return mealKitRepository.findAll(pageable).map(MealKitDto::from);
         }
 
-        if (Objects.requireNonNull(searchType) == SearchType.MNAME) {
-            mealKitRepository.findByMName(searchKeyword, pageable).map(MealKitDto::from);
-        }
-
-        return Page.empty();
+        return switch (searchType) {
+            case MNAME -> mealKitRepository.findBymName(searchKeyword, pageable).map(MealKitDto::from);
+        };
     }
 
     @Transactional(readOnly = true)

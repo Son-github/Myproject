@@ -18,7 +18,7 @@ public interface MealKitRepository extends
         QuerydslBinderCustomizer<QMealKit> {
 
 
-    Page<MealKit> findByMName(String mName, Pageable pageable);
+    Page<MealKit> findBymName(String mName, Pageable pageable);
 
     @Override
     default void customize(QuerydslBindings bindings, QMealKit root) {
