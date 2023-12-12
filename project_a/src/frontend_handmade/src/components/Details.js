@@ -1,21 +1,71 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
 import Box from '@mui/material/Box';
 import Stack from "@mui/joy/Stack";
-import {Paper, styled} from "@mui/material";
+import {Tab} from "@mui/material";
 import HeaderSection from "./HeaderSection";
 import Typography from "@mui/joy/Typography";
+import {ListItemButton, Table} from "@mui/joy";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import {FixedSizeList} from 'react-window';
+import AliceCarousel from "react-alice-carousel";
+import 'react-alice-carousel/lib/alice-carousel.css';
+import TabContext from "@mui/lab/TabContext";
+import {TabList, TabPanel} from "@mui/lab";
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+function renderRow(props) {
+    const { index, style } = props;
+
+    return (
+        <ListItem style={style} key={index} component="div" disablePadding>
+            <ListItemButton>
+                <ListItemText primary={`Item ${index + 1}`} />
+            </ListItemButton>
+        </ListItem>
+    );
+}
+
+const items = [
+    <div className="item" data-value="1" style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>,
+    <div className="item" data-value="2" style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>,
+    <div className="item" data-value="3" style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>
+];
+
+const renderSlideInfo = ({ item, itemsCount }) => {
+    return `${item}\\${itemsCount}`;
+};
+
+const renderDotsItem = ({ isActive }) => {
+    return isActive ? 'x' : 'o';
+};
+
+const renderPrevButton = ({ isDisabled }) => {
+    return <span style={{ opacity: isDisabled ? '0.5' : 1 }}>&lt;</span>;
+};
+
+const renderNextButton = ({ isDisabled }) => {
+    return <span style={{ opacity: isDisabled ? '0.5' : 1 }}>&gt;</span>;
+};
+
+const Carousel = () => (
+    <AliceCarousel
+        items={items}
+        disableSlideInfo={false}
+        renderSlideInfo={renderSlideInfo}
+        renderDotsItem={renderDotsItem}
+        renderPrevButton={renderPrevButton}
+        renderNextButton={renderNextButton}
+    />
+);
 
 
 export default function Details() {
+
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     return (
         <Box
@@ -25,39 +75,98 @@ export default function Details() {
                 display: 'grid',
                 gridTemplateColumns: { xs: 'auto'},
                 gridTemplateRows: 'auto 1fr auto',
+                justifyContent: 'center'
             }}
         >
             <Box sx={{ px: { xs: 2, md: 20 }, pt: 7}}><HeaderSection /></Box>
-            <Stack direction="row" spacing={10} sx={{ px: { xs: 2, md: 20 }, pt: 3 }}>
-                <img src={"https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400"} width='550' height='450'/>
-                <Box>
-                    <Typography
-                        color="neutral"
-                        level="h2"
-                        noWrap={false}
-                        variant="plain"
-                    >
-                        This area exist for MealKit Name.
-                    </Typography>
-                    <Typography
-                        color="neutral"
-                        level="body-lg"
-                        noWrap={false}
-                        variant="plain"
-                    >
-                        This area exist for plus explain.
-                    </Typography>
-                    <Typography
-                        color="neutral"
-                        level="body-lg"
-                        noWrap={false}
-                        variant="plain"
-                        sx={pt: 2}
-                    >
-                        This area exist for plus explain.
-                    </Typography>
-                </Box>
-            </Stack>
+            <Box sx={{ justifyContent: 'center' }}>
+                <Stack direction="row" spacing={10} sx={{ px: { xs: 2, md: 20 }, pt: 3 }} justifyContent="center">
+                    <Box width="550px">
+                        <Carousel/>
+                    </Box>
+                    <Box width="550px">
+                        <Typography
+                            color="neutral"
+                            level="h2"
+                            variant="plain"
+                        >
+                            This area exist for MealKit Name.
+                        </Typography>
+                        <Typography
+                            color="neutral"
+                            level="body-lg"
+                            noWrap={false}
+                            variant="plain"
+                        >
+                            This area exist for plus explain.
+                        </Typography>
+                        <Typography
+                            color="neutral"
+                            level="h4"
+                            noWrap={false}
+                            variant="plain"
+                            sx={{pt: 3}}
+                        >
+                            This area exist for price.
+                        </Typography>
+                        <Table aria-label="basic table" sx={{pt: 3, px: -2, width: 550}}>
+                            <tbody>
+                                <tr>
+                                    <td>판매 단위</td>
+                                    <td>159</td>
+
+                                </tr>
+                                <tr>
+                                    <td>판매자</td>
+                                    <td>237</td>
+
+                                </tr>
+                                <tr>
+                                    <td>중량/용량</td>
+                                    <td>262</td>
+
+                                </tr>
+                                <tr>
+                                    <td>알레르기 정보</td>
+                                    <td>305</td>
+
+                                </tr>
+                            </tbody>
+                        </Table>
+                        <Box
+                            sx={{ width: '100%', height: 400, maxWidth: 360, pt: 5}}
+                        >
+                            <FixedSizeList
+                                height={250}
+                                width={550}
+                                itemSize={46}
+                                itemCount={10}
+                                overscanCount={5}
+                            >
+                                {renderRow}
+                            </FixedSizeList>
+                        </Box>
+                    </Box>
+                </Stack>
+                <TabContext value={value}>
+                    <Box sx={{ px: { xs: 2, md: 20 }, pt: 3, justifyContent: 'center' }}>
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+                                <TabList
+                                    onChange={handleChange}
+                                    centered={true}
+                                    variant="fullWidth"
+                                >
+                                    <Tab label="상품설명" value="1" />
+                                    <Tab label="상세정보" value="2" />
+                                    <Tab label="후기" value="3" />
+                                </TabList>
+                            </Box>
+                            <TabPanel value="1">Item One</TabPanel>
+                            <TabPanel value="2">Item Two</TabPanel>
+                            <TabPanel value="3">Item Three</TabPanel>
+                    </Box>
+                </TabContext>
+            </Box>
         </Box>
     );
 }
