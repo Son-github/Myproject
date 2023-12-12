@@ -18,7 +18,7 @@ public interface MealKitCommentRepository extends
         QuerydslPredicateExecutor<MealKitComment>,
         QuerydslBinderCustomizer<QMealKitComment> {
 
-    List<MealKitComment> findByMealKitId(Long mealKitId);
+    List<MealKitComment> findByMealKitId(Long id);
 
     @Override
     default void customize(QuerydslBindings bindings, QMealKitComment root) {

@@ -27,5 +27,16 @@ public interface MealKitRepository extends
         bindings.bind(root.mName).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.mCategory).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.mContent).first(StringExpression::containsIgnoreCase);
-    };
+    }
+
+    /*
+        Repository는 Entity를 만들고 그 Entity에서 CRUD를 하기 위해서 만든다.
+        장점으로는
+
+        모든 사람들이 똑같이 사용할 수 있고 편리함
+        강력하면서 간편한 검색 기능
+        쿼리
+        영속화
+
+     */
 }
