@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @ToString(callSuper = true)
@@ -24,7 +26,8 @@ public class MealKitComment extends AuditingFields{
     @ManyToOne(optional = false) @JsonIgnore
     private UserAccount userAccount; // 작성자(ID)
     @Column(length = 60000) private String content;
-
+    @OneToMany(mappedBy = "mealKitComment", cascade = CascadeType.ALL)
+    private Set<MealKitCommentImage> mealKitCommentImages = new LinkedHashSet<>();
 
     protected MealKitComment() {}
 
