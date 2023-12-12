@@ -1,25 +1,26 @@
 package com.son.project_a.response;
 
+import com.son.project_a.domain.MealKitImage;
 import com.son.project_a.dto.MealKitDto;
+import com.son.project_a.dto.MealKitImageDto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record MealKitResponse(
         Long id,
         String mName,
         String mPrice,
         String mCategory,
-        int mStock,
         String mSite,
-        String mContent,
-        String mImage,
-        LocalDateTime createdAt
+        Set<String> mealKitImages
 ) implements Serializable {
 
-    public static MealKitResponse of(Long id, String mName, String mPrice, String mCategory,
-                                     int mStock, String mSite, String mContent, String mImage, LocalDateTime createdAt) {
-        return new MealKitResponse(id, mName, mPrice, mCategory, mStock, mSite, mContent, mImage, createdAt);
+    public static MealKitResponse of(Long id, String mName, String mPrice, String mCategory, String mSite,
+                                     Set<String> mealKitImages) {
+        return new MealKitResponse(id, mName, mPrice, mCategory, mSite, mealKitImages);
     }
 
     public static MealKitResponse from(MealKitDto dto) {
@@ -28,11 +29,10 @@ public record MealKitResponse(
                 dto.mName(),
                 dto.mPrice(),
                 dto.mCategory(),
-                dto.mStock(),
                 dto.mSite(),
-                dto.mContent(),
-                dto.mImage(),
-                dto.createAt()
+                dto.mealKitImageDtos().stream()
+                        .map(MealKitImageDto::imageUrl)
+                        .collect(Collectors.toUnmodifiableSet())
         );
     }
 }
