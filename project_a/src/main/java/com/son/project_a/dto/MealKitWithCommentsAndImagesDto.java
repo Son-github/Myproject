@@ -7,7 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record MealKitWithCommentsDto(
+public record MealKitWithCommentsAndImagesDto(
         Long id,
         String mName,
         String mPrice,
@@ -15,21 +15,21 @@ public record MealKitWithCommentsDto(
         int mStock,
         String mSite,
         String mContent,
-        String mImage,
+        Set<MealKitImageDto> mealKitImageDtos,
         Set<MealKitCommentDto> mealKitCommentDtos,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
 
-    public static MealKitWithCommentsDto of(Long id, String mName, String mPrice, String mCategory,
-                                            int mStock, String mSite, String mContent, String mImage,
-                                            Set<MealKitCommentDto> mealKitCommentDtos,
-                                            LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        return new MealKitWithCommentsDto(id, mName, mPrice, mCategory, mStock, mSite, mContent, mImage, mealKitCommentDtos, createdAt, modifiedAt);
+    public static MealKitWithCommentsAndImagesDto of(Long id, String mName, String mPrice, String mCategory,
+                                                     int mStock, String mSite, String mContent, Set<MealKitImageDto> mealKitImageDtos,
+                                                     Set<MealKitCommentDto> mealKitCommentDtos,
+                                                     LocalDateTime createdAt, LocalDateTime modifiedAt) {
+        return new MealKitWithCommentsAndImagesDto(id, mName, mPrice, mCategory, mStock, mSite, mContent, mealKitImageDtos, mealKitCommentDtos, createdAt, modifiedAt);
     }
 
-    public static MealKitWithCommentsDto from(MealKit entity) {
-        return new MealKitWithCommentsDto(
+    public static MealKitWithCommentsAndImagesDto from(MealKit entity) {
+        return new MealKitWithCommentsAndImagesDto(
                 entity.getId(),
                 entity.getMName(),
                 entity.getMPrice(),
@@ -37,7 +37,9 @@ public record MealKitWithCommentsDto(
                 entity.getMStock(),
                 entity.getMSite(),
                 entity.getMContent(),
-                entity.getMImage(),
+                entity.getMealKitImages().stream()
+                        .map(MealKitImageDto::from)
+                        .collect(Collectors.toCollection(LinkedHashSet::new)),
                 entity.getMealKitComments().stream()
                         .map(MealKitCommentDto::from)
                         .collect(Collectors.toCollection(LinkedHashSet::new)),
