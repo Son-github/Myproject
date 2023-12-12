@@ -1,13 +1,9 @@
 package com.son.project_a.service;
 
 import com.son.project_a.domain.MealKit;
-import com.son.project_a.domain.constant.SearchType;
-import com.son.project_a.dto.MealKitDto;
-import com.son.project_a.dto.MealKitWithCommentsDto;
+import com.son.project_a.dto.MealKitWithCommentsAndImagesDto;
 import com.son.project_a.repository.MealKitRepository;
-import com.son.project_a.response.MealKitResponse;
 import jakarta.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,11 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.ui.ModelMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +71,7 @@ class MealKitServiceTest {
         given(mealKitRepository.findById(mealKitId)).willReturn(Optional.of(mealKit));
 
         // When
-        MealKitWithCommentsDto dto = mealKitService.getMealKit(mealKitId);
+        MealKitWithCommentsAndImagesDto dto = mealKitService.getMealKit(mealKitId);
 
         // Then
         // log.info("뭐인가요? {}", mealKit.getMName());
@@ -113,8 +104,7 @@ class MealKitServiceTest {
                 "떡볶이",
                 32,
                 "www.naver.com",
-                "이 떡볶이는 제일 맛있어요!",
-                "www.naver.com"
+                "이 떡볶이는 제일 맛있어요!"
         );
     }
 

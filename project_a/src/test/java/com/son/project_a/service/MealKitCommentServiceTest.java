@@ -38,7 +38,7 @@ class MealKitCommentServiceTest {
         // Given
         long mealKitId = 1L;
         given(mealKitRepository.findById(mealKitId)).willReturn(Optional.of(
-                MealKit.of("test", "3,400", "떡볶이", 5, "www.naver.com","This food is very healthy food!!", "www.naver.com")
+                MealKit.of("test", "3,400", "떡볶이", 5, "www.naver.com","This food is very healthy food!!")
         ));
 
         // When

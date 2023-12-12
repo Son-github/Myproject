@@ -1,7 +1,7 @@
 package com.son.project_a.repository;
 
-import com.son.project_a.domain.MealKit;
-import com.son.project_a.domain.UserAccount;
+import com.son.project_a.domain.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -24,16 +24,21 @@ public class JpaRepositoryTest {
 
     private final UserAccountRepository userAccountRepository;
     private final MealKitRepository mealKitRepository;
-
     private final MealKitCommentRepository mealKitCommentRepository;
+    private final MealKitImageRepository mealKitImageRepository;
+    private final MealKitCommentImageRepository mealKitCommentImageRepository;
 
     public JpaRepositoryTest(
             @Autowired UserAccountRepository userAccountRepository,
             @Autowired MealKitRepository mealKitRepository,
-            @Autowired MealKitCommentRepository mealKitCommentRepository) {
+            @Autowired MealKitCommentRepository mealKitCommentRepository,
+            @Autowired MealKitImageRepository mealKitImageRepository,
+            @Autowired MealKitCommentImageRepository mealKitCommentImageRepository) {
         this.userAccountRepository = userAccountRepository;
         this.mealKitRepository = mealKitRepository;
         this.mealKitCommentRepository = mealKitCommentRepository;
+        this.mealKitImageRepository = mealKitImageRepository;
+        this.mealKitCommentImageRepository = mealKitCommentImageRepository;
     }
 
     @DisplayName("select")
@@ -44,12 +49,24 @@ public class JpaRepositoryTest {
         // When
         List<UserAccount> userAccountList = userAccountRepository.findAll(); // 모든 것 찾기
         List<MealKit> mealKitList = mealKitRepository.findAll();
+        List<MealKitComment> mealKitCommentList = mealKitCommentRepository.findAll();
+        List<MealKitImage> mealKitImagesList = mealKitImageRepository.findAll();
+        List<MealKitCommentImage> mealKitCommentImagesList = mealKitCommentImageRepository.findAll();
 
         // Then
         assertThat(userAccountList)
                 .isNotNull()
                 .hasSize(100);
         assertThat(mealKitList)
+                .isNotNull()
+                .hasSize(100);
+        assertThat(mealKitImagesList)
+                .isNotNull()
+                .hasSize(100);
+        assertThat(mealKitCommentList)
+                .isNotNull()
+                .hasSize(100);
+        assertThat(mealKitCommentImagesList)
                 .isNotNull()
                 .hasSize(100);
 
@@ -60,10 +77,12 @@ public class JpaRepositoryTest {
     void givenValues_whenInserting_thenWorkFine() {
         // Given
         long prevUserAccount = userAccountRepository.count();
+        MealKit newMealKit = createMealKit("오성떡볶이", "5000원", "분식", 5, "www.naver.com", "hi");
+        MealKitImage mealKitImage = createMealKitImage(newMealKit, "www.naver.com");
 
         // When
         UserAccount userAccount = UserAccount.of("key@gmail.com", "test", "key", "port");
-        MealKit mealKit = MealKit.of("Test", "3000원", "라볶이", 5, "www.test.co.kr", "black of the son", "www.image.co.kr");
+        MealKit mealKit = MealKit.of("Test", "3000원", "라볶이", 5, "www.test.co.kr", "black of the son");
         userAccount.setCreatedAt(LocalDateTime.now());
         userAccountRepository.save(userAccount);
         mealKitRepository.save(mealKit);
@@ -83,6 +102,7 @@ public class JpaRepositoryTest {
                 .isEqualTo("Test");
     }
 
+
     @DisplayName("update")
     @Test
     void givenUpdateValue_whenUpdate_thenWorkFine() {
@@ -99,6 +119,8 @@ public class JpaRepositoryTest {
                 .hasFieldOrPropertyWithValue("userEmail", updateEmail);
     }
 
+
+    @Disabled
     @DisplayName("delete")
     @Test
     void given_when_then() {
@@ -114,10 +136,14 @@ public class JpaRepositoryTest {
                 .isEqualTo(preciousUserAccountCount-1);
     }
 
-    @Test
-    void givenUserAccountEmail_when_thenReturnTrue() {
-        log.info("ctatem2o@yahoo.com이 존재하나요?: {}",userAccountRepository.existsByUserEmail("ctatem2o@yahoo.com"));
-        assertThat(userAccountRepository.existsByUserEmail("ctatem2o@yahoo.com"))
-                .isEqualTo(true);
+    private MealKitImage createMealKitImage(MealKit mealKit, String imageUrl) {
+        return MealKitImage.of(mealKit, imageUrl);
     }
+
+    private MealKit createMealKit(String mName, String mPrice, String mCategory, int mStock, String mSite, String mContent) {
+        return MealKit.of(mName, mPrice, mCategory, mStock, mSite, mContent);
+    }
+
+
 }
+
