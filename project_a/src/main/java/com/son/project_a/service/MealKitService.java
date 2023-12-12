@@ -3,7 +3,7 @@ package com.son.project_a.service;
 
 import com.son.project_a.domain.constant.SearchType;
 import com.son.project_a.dto.MealKitDto;
-import com.son.project_a.dto.MealKitWithCommentsDto;
+import com.son.project_a.dto.MealKitWithCommentsAndImagesDto;
 import com.son.project_a.repository.MealKitRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,9 +34,9 @@ public class MealKitService {
     }
 
     @Transactional(readOnly = true)
-    public MealKitWithCommentsDto getMealKit(Long mealKitId) {
+    public MealKitWithCommentsAndImagesDto getMealKit(Long mealKitId) {
         return mealKitRepository.findById(mealKitId)
-                .map(MealKitWithCommentsDto::from)
+                .map(MealKitWithCommentsAndImagesDto::from)
                 .orElseThrow( () -> new EntityNotFoundException("MealKit가 없습니다."));
     }
 }
