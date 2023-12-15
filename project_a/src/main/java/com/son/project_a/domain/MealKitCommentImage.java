@@ -1,5 +1,6 @@
 package com.son.project_a.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -17,7 +18,7 @@ public class MealKitCommentImage extends AuditingFields{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false) @JsonIgnore
     private MealKitComment mealKitComment;
 
     @Column(length = 10000)

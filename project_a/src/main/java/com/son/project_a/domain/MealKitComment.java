@@ -21,7 +21,7 @@ public class MealKitComment extends AuditingFields{
     private Long id;
 
     @Column(length = 1000) private String title;
-    @ManyToOne(optional = false) @JsonIgnore
+    @ManyToOne(optional = false) @JsonIgnore // @JsonIgnore를 넣는 이유는 Infinite recursion 문제가 생기기 때문에 넣는다.
     private MealKit mealKit; // 밀키트(ID)
     @ManyToOne(optional = false) @JsonIgnore
     private UserAccount userAccount; // 작성자(ID)

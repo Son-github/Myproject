@@ -13,6 +13,7 @@ const MealKits = (props) => {
 
     const [mealKitsList, setMealKitsList] = useState([]);
     const [searchMealKits, setSearchMealKits] = useState("");
+    const [mealKitImage, setMealKitImage] = useState([]);
     const mealKitsRef = useRef();
 
     const [page, setPage] = useState(1);
@@ -74,6 +75,8 @@ const MealKits = (props) => {
         setPage(value);
     };
 
+    console.log(mealKitsList.at(0));
+
     return (
             <Box
                 component="main"
@@ -99,7 +102,8 @@ const MealKits = (props) => {
                                 category={value.mcategory}
                                 link={value.msite}
                                 //rareFind
-                                image="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" // TODO: image는 따로 저장해야할 듯! 새로 테이블을 만들자!
+                                //image="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" // TODO: image는 따로 저장해야할 듯! 새로 테이블을 만들자!
+                                image={value.mealKitImages.map(image => image.imageUrl)}
                             />
                         </Stack>
                         )}
