@@ -33,6 +33,8 @@ public class QMealKitComment extends EntityPathBase<MealKitComment> {
 
     public final QMealKit mealKit;
 
+    public final SetPath<MealKitCommentImage, QMealKitCommentImage> mealKitCommentImages = this.<MealKitCommentImage, QMealKitCommentImage>createSet("mealKitCommentImages", MealKitCommentImage.class, QMealKitCommentImage.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 

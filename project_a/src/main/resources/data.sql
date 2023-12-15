@@ -307,9 +307,9 @@ insert into meal_kit_comment (created_at, modified_at, meal_kit_id, user_account
 
 
 -- import meal_kit_image
-insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (1, 'http://dummyimage.com/x.png/5fa2dd/ffffff', '2023-06-03', '2023-05-30');
+insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (1, 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400', '2023-06-03', '2023-05-30');
 insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (2, 'http://dummyimage.com/x.png/dddddd/000000', '2023-01-13', '2023-06-11');
-insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (3, 'http://dummyimage.com/x.png/cc0000/ffffff', '2023-01-21', '2023-11-23');
+insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (3, 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400', '2023-01-21', '2023-11-23');
 insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (4, 'http://dummyimage.com/x.png/ff4444/ffffff', '2023-09-04', '2023-08-08');
 insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (5, 'http://dummyimage.com/x.png/cc0000/ffffff', '2023-07-18', '2023-02-13');
 insert into meal_kit_image (meal_kit_id, image_url, created_at, modified_at) values (6, 'http://dummyimage.com/x.png/cc0000/ffffff', '2022-12-22', '2023-01-03');

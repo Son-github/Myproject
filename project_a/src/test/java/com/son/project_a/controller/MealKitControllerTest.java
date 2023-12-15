@@ -44,12 +44,12 @@ class MealKitControllerTest {
         mvc.perform(get("/mealKits"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("mealKits"));
-        then(mealKitService).should().searchMealKits(eq(null), eq(null), any(Pageable.class));
+        then(mealKitService).should().searchMealKits(eq(null), any(Pageable.class));
     }
 
     @DisplayName("[view][GET] 밀키트 상세 페이지 - 정상 호출")
     @Test
-    void givenNothing_whenRequestingMealKitDetailView_thenReturnMealKitDetailVeiw() throws Exception {
+    void givenNothing_whenRequestingMealKitDetailView_thenReturnMealKitDetailView() throws Exception {
         // Given
 
         // When & Then
