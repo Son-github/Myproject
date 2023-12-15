@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
@@ -23,14 +25,13 @@ public class MealKitService {
 
 
     @Transactional(readOnly = true)
-    public Page<MealKitDto> searchMealKits(SearchType searchType, String searchKeyword, Pageable pageable) {
+    public List<MealKitDto> searchMealKits(String searchKeyword, Pageable pageable) {
         if (searchKeyword == null || searchKeyword.isBlank()) {
-            return mealKitRepository.findAll(pageable).map(MealKitDto::from);
+            return mealKitRepository.findAll(pageable).map(MealKitDto::from).toList();
         }
 
-        return switch (searchType) {
-            case MNAME -> mealKitRepository.findBymName(searchKeyword, pageable).map(MealKitDto::from);
-        };
+        return mealKitRepository.findMealKitBymNameContaining(searchKeyword, pageable).map(MealKitDto::from).stream().toList();
+
     }
 
     @Transactional(readOnly = true)
