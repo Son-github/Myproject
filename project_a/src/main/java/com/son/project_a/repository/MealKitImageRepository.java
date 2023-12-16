@@ -1,7 +1,6 @@
 package com.son.project_a.repository;
 
 import com.querydsl.core.types.dsl.DateTimeExpression;
-import com.son.project_a.domain.MealKit;
 import com.son.project_a.domain.MealKitImage;
 import com.son.project_a.domain.QMealKitImage;
 import org.springframework.data.jpa.repository.JpaRepository;

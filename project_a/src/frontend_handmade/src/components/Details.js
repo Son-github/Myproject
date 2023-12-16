@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import Stack from "@mui/joy/Stack";
 import {Tab} from "@mui/material";
@@ -12,7 +13,6 @@ import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
 import TabContext from "@mui/lab/TabContext";
 import {TabList, TabPanel} from "@mui/lab";
-import {useEffect, useState} from "react";
 import MealKitService from "../MealKitService";
 import {useParams} from "react-router-dom";
 

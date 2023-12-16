@@ -2,12 +2,9 @@ package com.son.project_a.controller;
 
 import com.son.project_a.domain.MealKit;
 import com.son.project_a.domain.MealKitImage;
-import com.son.project_a.domain.constant.SearchType;
-import com.son.project_a.dto.MealKitDto;
 import com.son.project_a.exception.ResourceNotFoundException;
 import com.son.project_a.exception.ServerError;
 import com.son.project_a.repository.MealKitRepository;
-import com.son.project_a.response.MealKitResponse;
 import com.son.project_a.service.MealKitService;
 import com.son.project_a.service.PaginationService;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
