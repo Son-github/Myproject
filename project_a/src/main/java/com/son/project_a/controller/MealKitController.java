@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
-@RequestMapping("/mealKits")
+//@RequestMapping("/mealKits") 여기에 있는 메소드들이 똑같은 주소에서 된다면 이걸 쓰면 된다.
 @ResponseBody
 @RestController
 public class MealKitController {
@@ -44,7 +44,7 @@ public class MealKitController {
     private Logger log = LoggerFactory.getLogger(MealKitController.class);
 
 
-    @GetMapping
+    @GetMapping("mealKits")
     public Map<String, Object> mealKits(
             @RequestParam(value = "m_name",required = false) String searchValue,
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -65,10 +65,6 @@ public class MealKitController {
             log.info("Page<MealKitDto> searchMealKits: {}", mealKitService.searchMealKits(searchValue, pagination));
 
             mealKits = mealKitPage.getContent();
-            //List<MealKit> mealKitStream = mealKits.stream().filter(mealKit -> mealKit.getMName().contains("e")).collect(Collectors.toList());
-            //List<String> mealKitImageStream = mealKitStream.stream().filter(mealKit -> mealKit.getMealKitComments());
-            //log.info("mealKitStream: {}", mealKitStream);
-            ///log.info("mealKits: {}", mealKits.get(0).getMealKitImages());
             Map<String, Object> response = new HashMap<String, Object>();
             response.put("mealKits", mealKits);
             response.put("totalPages", mealKitPage.getTotalPages());
@@ -79,13 +75,15 @@ public class MealKitController {
         }
     }
 
-    @GetMapping("/{id}")
-    public MealKit findById(@PathVariable("id") Long id) {
+    @GetMapping("detail/{id}")
+    public MealKit detailMealKits(@PathVariable("id") Long id) {
 
         MealKit mealKit = mealKitRepository.findById(id)
                 .orElseThrow( () -> new ResourceNotFoundException(
                         "MealKit Not Found"
                 ));
+
+        log.info("mealKit: {}", mealKit);
 
         return mealKit;
     }

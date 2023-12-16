@@ -23,7 +23,8 @@ public interface MealKitRepository extends
 {
 
 
-    Page<MealKit> findMealKitBymNameContaining(String mName, Pageable pageable);
+    Page<MealKit> findMealKitBymNameContaining(String searchValue, Pageable pageable);
+    // Containing을 추가하면 mName에 searchValue가 들어간 것을 찾는다.
 
 
     @Override
