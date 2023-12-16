@@ -100,7 +100,7 @@ const MealKits = (props) => {
                             <RentalCard
                                 title={value.mname}
                                 category={value.mcategory}
-                                link={value.msite}
+                                link={"/detail/" + value.id}
                                 //rareFind
                                 //image="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" // TODO: image는 따로 저장해야할 듯! 새로 테이블을 만들자!
                                 image={value.mealKitImages.map(image => image.imageUrl)}

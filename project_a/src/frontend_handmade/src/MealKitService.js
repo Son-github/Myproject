@@ -4,8 +4,13 @@ const getMealKits = (params) => {
     return http.get("/mealKits", { params });
 }
 
+const getMealKitDetail = (id) => {
+    return http.get(`/detail/${id}`);
+}
+
 const MealKitService = {
-    getMealKits
+    getMealKits,
+    getMealKitDetail
 };
 
 export default MealKitService;

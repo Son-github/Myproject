@@ -14,9 +14,10 @@ class App extends React.Component {
             <Nav />
             <div className="App">
                   <Routes>
-                      <Route path="/MealKits" element={<MealKits />}/>
-                      <Route path="/signin" element={<Details />} /> //TODO: signup으로 바꿔줭!
+                      <Route path="/" element={<MealKits />}/>
+                      <Route path="/signin" element={<SignIn />} />
                       <Route path="/signup" element={<SignUp />} />
+                      <Route path="/detail/:id" element={<Details/>}/>
                   </Routes>
             </div>
         </React.Fragment>

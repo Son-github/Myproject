@@ -12,6 +12,9 @@ import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
 import TabContext from "@mui/lab/TabContext";
 import {TabList, TabPanel} from "@mui/lab";
+import {useEffect, useState} from "react";
+import MealKitService from "../MealKitService";
+import {useParams} from "react-router-dom";
 
 function renderRow(props) {
     const { index, style } = props;
@@ -25,47 +28,79 @@ function renderRow(props) {
     );
 }
 
-const items = [
-    <div className="item" data-value="1" style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>,
-    <div className="item" data-value="2" style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>,
-    <div className="item" data-value="3" style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>
-];
+export default function Details(props) {
 
-const renderSlideInfo = ({ item, itemsCount }) => {
-    return `${item}\\${itemsCount}`;
-};
+    const MealKitState = {
+        createdAt: "",
+        modifiedAt: "",
+        id: null,
+        mcategory: "",
+        mcontent: "",
+        mealKitComments: [],
+        mealKitImages: [],
+        mname: "",
+        mprice: "",
+        msite: "",
+        mstock: null
+    };
 
-const renderDotsItem = ({ isActive }) => {
-    return isActive ? 'x' : 'o';
-};
+    const [mealKit, setMealKit] = useState(MealKitState);
 
-const renderPrevButton = ({ isDisabled }) => {
-    return <span style={{ opacity: isDisabled ? '0.5' : 1 }}>&lt;</span>;
-};
+    const getMealKit = id => {
+        MealKitService.getMealKitDetail(id)
+            .then((res) => {
+                setMealKit(res.data);
+                console.log(res.data)
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
 
-const renderNextButton = ({ isDisabled }) => {
-    return <span style={{ opacity: isDisabled ? '0.5' : 1 }}>&gt;</span>;
-};
+    const { id } = useParams();
 
-const Carousel = () => (
-    <AliceCarousel
-        items={items}
-        disableSlideInfo={false}
-        renderSlideInfo={renderSlideInfo}
-        renderDotsItem={renderDotsItem}
-        renderPrevButton={renderPrevButton}
-        renderNextButton={renderNextButton}
-    />
-);
-
-
-export default function Details() {
+    useEffect(() => {
+        getMealKit(id);
+    }, [id]);
 
     const [value, setValue] = React.useState('1');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const items = [
+        <div style={{height: 450}}><img alt="" src={mealKit.mealKitImages.at(0)} style={{width:550, height:450}}/></div>,
+        <div style={{height: 450}}><img alt="" src={mealKit.mealKitImages.at(1)} style={{width:550, height:450}}/></div>,
+        <div style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>
+    ]; // todo: mealKit.mealKitImages로 바꿀것.
+
+    const renderSlideInfo = ({ item, itemsCount }) => {
+        return `${item}\\${itemsCount}`;
+    };
+
+    const renderDotsItem = ({ isActive }) => {
+        return isActive ? 'x' : 'o';
+    };
+
+    const renderPrevButton = ({ isDisabled }) => {
+        return <span style={{ opacity: isDisabled ? '0.5' : 1 }}>&lt;</span>;
+    };
+
+    const renderNextButton = ({ isDisabled }) => {
+        return <span style={{ opacity: isDisabled ? '0.5' : 1 }}>&gt;</span>;
+    };
+
+    const Carousel = () => (
+        <AliceCarousel
+            items={items}
+            disableSlideInfo={false}
+            renderSlideInfo={renderSlideInfo}
+            renderDotsItem={renderDotsItem}
+            renderPrevButton={renderPrevButton}
+            renderNextButton={renderNextButton}
+        />
+    );
 
     return (
         <Box
@@ -90,7 +125,7 @@ export default function Details() {
                             level="h2"
                             variant="plain"
                         >
-                            This area exist for MealKit Name.
+                            {mealKit.mname}
                         </Typography>
                         <Typography
                             color="neutral"
@@ -98,7 +133,7 @@ export default function Details() {
                             noWrap={false}
                             variant="plain"
                         >
-                            This area exist for plus explain.
+                            {mealKit.mcategory}
                         </Typography>
                         <Typography
                             color="neutral"
@@ -107,7 +142,7 @@ export default function Details() {
                             variant="plain"
                             sx={{pt: 3}}
                         >
-                            This area exist for price.
+                            {mealKit.mprice}
                         </Typography>
                         <Table aria-label="basic table" sx={{pt: 3, px: -2, width: 550}}>
                             <tbody>
