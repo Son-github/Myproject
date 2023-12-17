@@ -1,5 +1,6 @@
 package com.son.project_a.response;
 
+import com.son.project_a.dto.MealKitSiteDto;
 import com.son.project_a.dto.MealKitWithCommentsAndImagesDto;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public record MealKitWithCommentsAndImagesResponse(
         String mPrice,
         String mCategory,
         int mStock,
-        String mSite,
+        Set<MealKitSiteResponse> mealKitSiteResponses,
         String mContent,
         Set<MealKitImageResponse> mealKitImageResponses,
         Set<MealKitCommentResponse> mealKitCommentResponses,
@@ -24,10 +25,10 @@ public record MealKitWithCommentsAndImagesResponse(
 ) implements Serializable {
 
     public static MealKitWithCommentsAndImagesResponse of(Long id, String mName, String mPrice, String mCategory,
-                                                 int mStock, String mSite, String mContent, Set<MealKitImageResponse> mealKitImageResponses,
+                                                 int mStock, Set<MealKitSiteResponse> mealKitSiteResponses, String mContent, Set<MealKitImageResponse> mealKitImageResponses,
                                                  Set<MealKitCommentResponse> mealKitCommentResponses,
                                                  LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        return new MealKitWithCommentsAndImagesResponse(id, mName, mPrice, mCategory, mStock, mSite, mContent, mealKitImageResponses, mealKitCommentResponses, createdAt, modifiedAt);
+        return new MealKitWithCommentsAndImagesResponse(id, mName, mPrice, mCategory, mStock, mealKitSiteResponses, mContent, mealKitImageResponses, mealKitCommentResponses, createdAt, modifiedAt);
     }
 
     public static MealKitWithCommentsAndImagesResponse from(MealKitWithCommentsAndImagesDto dto) {
@@ -37,7 +38,10 @@ public record MealKitWithCommentsAndImagesResponse(
                 dto.mPrice(),
                 dto.mCategory(),
                 dto.mStock(),
-                dto.mSite(),
+                dto.mealKitSiteDtos()
+                        .stream()
+                        .map(MealKitSiteResponse::from)
+                        .collect(Collectors.toCollection(LinkedHashSet::new)),
                 dto.mContent(),
                 dto.mealKitImageDtos()
                         .stream()

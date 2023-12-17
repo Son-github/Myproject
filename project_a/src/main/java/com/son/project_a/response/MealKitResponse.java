@@ -3,6 +3,7 @@ package com.son.project_a.response;
 import com.son.project_a.domain.MealKitImage;
 import com.son.project_a.dto.MealKitDto;
 import com.son.project_a.dto.MealKitImageDto;
+import com.son.project_a.dto.MealKitSiteDto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,13 +15,13 @@ public record MealKitResponse(
         String mName,
         String mPrice,
         String mCategory,
-        String mSite,
+        Set<String> mealKitSites,
         Set<String> mealKitImages
 ) implements Serializable {
 
-    public static MealKitResponse of(Long id, String mName, String mPrice, String mCategory, String mSite,
+    public static MealKitResponse of(Long id, String mName, String mPrice, String mCategory, Set<String> mealKitSites,
                                      Set<String> mealKitImages) {
-        return new MealKitResponse(id, mName, mPrice, mCategory, mSite, mealKitImages);
+        return new MealKitResponse(id, mName, mPrice, mCategory, mealKitSites, mealKitImages);
     }
 
     public static MealKitResponse from(MealKitDto dto) {
@@ -29,7 +30,9 @@ public record MealKitResponse(
                 dto.mName(),
                 dto.mPrice(),
                 dto.mCategory(),
-                dto.mSite(),
+                dto.mealKitSiteDtos().stream()
+                        .map(MealKitSiteDto::siteUrl)
+                        .collect(Collectors.toUnmodifiableSet()),
                 dto.mealKitImageDtos().stream()
                         .map(MealKitImageDto::imageUrl)
                         .collect(Collectors.toUnmodifiableSet())
