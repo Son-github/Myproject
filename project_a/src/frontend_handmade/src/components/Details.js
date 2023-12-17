@@ -68,7 +68,7 @@ export default function Details(props) {
         getMealKit(id);
     }, [id]);
 
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = React.useState('1'); // todo: site 넣기
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

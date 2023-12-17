@@ -42,7 +42,7 @@ public class QMealKit extends EntityPathBase<MealKit> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
-    public final StringPath mPrice = createString("mPrice");
+    public final NumberPath<Integer> mPrice = createNumber("mPrice", Integer.class);
 
     public final NumberPath<Integer> mStock = createNumber("mStock", Integer.class);
 
