@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public record MealKitWithCommentsAndImagesResponse(
         Long id,
         String mName,
-        String mPrice,
+        int mPrice,
         String mCategory,
         int mStock,
         Set<MealKitSiteResponse> mealKitSiteResponses,
@@ -24,7 +24,7 @@ public record MealKitWithCommentsAndImagesResponse(
 
 ) implements Serializable {
 
-    public static MealKitWithCommentsAndImagesResponse of(Long id, String mName, String mPrice, String mCategory,
+    public static MealKitWithCommentsAndImagesResponse of(Long id, String mName, int mPrice, String mCategory,
                                                  int mStock, Set<MealKitSiteResponse> mealKitSiteResponses, String mContent, Set<MealKitImageResponse> mealKitImageResponses,
                                                  Set<MealKitCommentResponse> mealKitCommentResponses,
                                                  LocalDateTime createdAt, LocalDateTime modifiedAt) {

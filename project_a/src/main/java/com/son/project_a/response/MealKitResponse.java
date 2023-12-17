@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 public record MealKitResponse(
         Long id,
         String mName,
-        String mPrice,
+        int mPrice,
         String mCategory,
         Set<String> mealKitSites,
         Set<String> mealKitImages
 ) implements Serializable {
 
-    public static MealKitResponse of(Long id, String mName, String mPrice, String mCategory, Set<String> mealKitSites,
+    public static MealKitResponse of(Long id, String mName, int mPrice, String mCategory, Set<String> mealKitSites,
                                      Set<String> mealKitImages) {
         return new MealKitResponse(id, mName, mPrice, mCategory, mealKitSites, mealKitImages);
     }
