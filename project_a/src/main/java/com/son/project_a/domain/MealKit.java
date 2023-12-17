@@ -21,7 +21,7 @@ public class MealKit extends AuditingFields {
     @Column
     private String mName;
     @Column
-    private String mPrice;
+    private int mPrice;
     @Column
     private String mCategory;
     @Column
@@ -48,7 +48,7 @@ public class MealKit extends AuditingFields {
     protected MealKit() {
     }
 
-    public MealKit(String mName, String mPrice, String mCategory, int mStock, String mContent) {
+    public MealKit(String mName, int mPrice, String mCategory, int mStock, String mContent) {
         this.mName = mName;
         this.mPrice = mPrice;
         this.mCategory = mCategory;
@@ -56,7 +56,7 @@ public class MealKit extends AuditingFields {
         this.mContent = mContent;
     }
 
-    public static MealKit of(String mName, String mPrice, String mCategory, int mStock, String mContent) {
+    public static MealKit of(String mName, int mPrice, String mCategory, int mStock, String mContent) {
         return new MealKit(mName, mPrice, mCategory, mStock, mContent);
     }
 

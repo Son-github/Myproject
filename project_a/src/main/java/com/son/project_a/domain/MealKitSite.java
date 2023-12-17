@@ -21,6 +21,10 @@ public class MealKitSite extends AuditingFields{
 
     @ManyToOne(optional = false) @JsonIgnore private MealKit mealKit;
 
+    @Column private String siteName;
+
+    @Column private int sitePrice;
+
     @Column(length = 20000) private String siteUrl;
 
     protected MealKitSite() {}
