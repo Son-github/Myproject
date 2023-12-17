@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public record MealKitWithCommentsAndImagesDto(
         Long id,
         String mName,
-        String mPrice,
+        int mPrice,
         String mCategory,
         int mStock,
         Set<MealKitSiteDto> mealKitSiteDtos,
@@ -21,7 +21,7 @@ public record MealKitWithCommentsAndImagesDto(
         LocalDateTime modifiedAt
 ) {
 
-    public static MealKitWithCommentsAndImagesDto of(Long id, String mName, String mPrice, String mCategory,
+    public static MealKitWithCommentsAndImagesDto of(Long id, String mName, int mPrice, String mCategory,
                                                      int mStock, Set<MealKitSiteDto> mealKitSiteDtos, String mContent, Set<MealKitImageDto> mealKitImageDtos,
                                                      Set<MealKitCommentDto> mealKitCommentDtos,
                                                      LocalDateTime createdAt, LocalDateTime modifiedAt) {

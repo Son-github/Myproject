@@ -12,7 +12,7 @@ public record MealKitDto(
 
         Long id,
         String mName,
-        String mPrice,
+        int mPrice,
         String mCategory,
         int mStock,
         Set<MealKitSiteDto> mealKitSiteDtos,
@@ -23,7 +23,7 @@ public record MealKitDto(
 ) {
 
     public static MealKitDto of(
-            String mName, String mPrice, String mCategory,
+            String mName, int mPrice, String mCategory,
             int mStock, Set<MealKitSiteDto> mealKitSiteDtos, String mContent, Set<MealKitImageDto> mealKitImageDtos
     ){
         return new MealKitDto(
