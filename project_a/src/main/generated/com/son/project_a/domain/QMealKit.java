@@ -33,7 +33,9 @@ public class QMealKit extends EntityPathBase<MealKit> {
 
     public final SetPath<MealKitComment, QMealKitComment> mealKitComments = this.<MealKitComment, QMealKitComment>createSet("mealKitComments", MealKitComment.class, QMealKitComment.class, PathInits.DIRECT2);
 
-    public final StringPath mImage = createString("mImage");
+    public final SetPath<MealKitImage, QMealKitImage> mealKitImages = this.<MealKitImage, QMealKitImage>createSet("mealKitImages", MealKitImage.class, QMealKitImage.class, PathInits.DIRECT2);
+
+    public final SetPath<MealKitSite, QMealKitSite> mealKitSites = this.<MealKitSite, QMealKitSite>createSet("mealKitSites", MealKitSite.class, QMealKitSite.class, PathInits.DIRECT2);
 
     public final StringPath mName = createString("mName");
 
@@ -41,8 +43,6 @@ public class QMealKit extends EntityPathBase<MealKit> {
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
     public final StringPath mPrice = createString("mPrice");
-
-    public final StringPath mSite = createString("mSite");
 
     public final NumberPath<Integer> mStock = createNumber("mStock", Integer.class);
 
