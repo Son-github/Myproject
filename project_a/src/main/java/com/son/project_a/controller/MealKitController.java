@@ -69,16 +69,21 @@ public class MealKitController {
     }
 
     @GetMapping("detail/{id}")
-    public MealKit detailMealKits(@PathVariable("id") Long id) {
+    public Map<String, Object> detailMealKits(@PathVariable("id") Long id) {
+
+        Map<String, Object> response = new HashMap<String, Object>();
 
         MealKit mealKit = mealKitRepository.findById(id)
                 .orElseThrow( () -> new ResourceNotFoundException(
                         "MealKit Not Found"
                 ));
 
-        log.info("mealKit: {}", mealKit);
+        response.put("mealKit", mealKit);
+        response.put("mealKitImages", mealKit.getMealKitImages());
 
-        return mealKit;
+       log.info("mealKitImages: {}", mealKit.getMealKitImages() );
+
+        return response;
     }
 
 

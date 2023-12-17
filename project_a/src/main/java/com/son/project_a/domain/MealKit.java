@@ -27,9 +27,13 @@ public class MealKit extends AuditingFields {
     @Column
     private int mStock;
     @Column(length = 65535)
-    private String mSite;
-    @Column(length = 65535)
     private String mContent;
+
+    @ToString.Exclude
+    @OrderBy("createdAt desc")
+    @OneToMany(mappedBy = "mealKit", cascade = CascadeType.ALL)
+    private final Set<MealKitSite> mealKitSites = new LinkedHashSet<>();
+
 
     @ToString.Exclude
     @OrderBy("createdAt desc")
@@ -44,17 +48,16 @@ public class MealKit extends AuditingFields {
     protected MealKit() {
     }
 
-    public MealKit(String mName, String mPrice, String mCategory, int mStock, String mSite, String mContent) {
+    public MealKit(String mName, String mPrice, String mCategory, int mStock, String mContent) {
         this.mName = mName;
         this.mPrice = mPrice;
         this.mCategory = mCategory;
         this.mStock = mStock;
-        this.mSite = mSite;
         this.mContent = mContent;
     }
 
-    public static MealKit of(String mName, String mPrice, String mCategory, int mStock, String mSite, String mContent) {
-        return new MealKit(mName, mPrice, mCategory, mStock, mSite, mContent);
+    public static MealKit of(String mName, String mPrice, String mCategory, int mStock, String mContent) {
+        return new MealKit(mName, mPrice, mCategory, mStock, mContent);
     }
 
     @Override
