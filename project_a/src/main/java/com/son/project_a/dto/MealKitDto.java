@@ -1,6 +1,7 @@
 package com.son.project_a.dto;
 
 import com.son.project_a.domain.MealKit;
+import com.son.project_a.domain.MealKitSite;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -14,7 +15,7 @@ public record MealKitDto(
         String mPrice,
         String mCategory,
         int mStock,
-        String mSite,
+        Set<MealKitSiteDto> mealKitSiteDtos,
         String mContent,
         Set<MealKitImageDto> mealKitImageDtos,
         LocalDateTime createAt,
@@ -23,11 +24,11 @@ public record MealKitDto(
 
     public static MealKitDto of(
             String mName, String mPrice, String mCategory,
-            int mStock, String mSite, String mContent, Set<MealKitImageDto> mealKitImageDtos
+            int mStock, Set<MealKitSiteDto> mealKitSiteDtos, String mContent, Set<MealKitImageDto> mealKitImageDtos
     ){
         return new MealKitDto(
                 null, mName, mPrice, mCategory, mStock,
-                mSite, mContent, mealKitImageDtos, null, null);
+                mealKitSiteDtos, mContent, mealKitImageDtos, null, null);
     }
 
     public static MealKitDto from(MealKit entity) {
@@ -37,7 +38,9 @@ public record MealKitDto(
                 entity.getMPrice(),
                 entity.getMCategory(),
                 entity.getMStock(),
-                entity.getMSite(),
+                entity.getMealKitSites().stream()
+                        .map(MealKitSiteDto::from)
+                        .collect(Collectors.toCollection(LinkedHashSet::new)),
                 entity.getMContent(),
                 entity.getMealKitImages().stream()
                                 .map(MealKitImageDto::from)
@@ -53,7 +56,6 @@ public record MealKitDto(
                 mPrice,
                 mCategory,
                 mStock,
-                mSite,
                 mContent
         );
     }
