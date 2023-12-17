@@ -13,7 +13,6 @@ const MealKits = (props) => {
 
     const [mealKitsList, setMealKitsList] = useState([]);
     const [searchMealKits, setSearchMealKits] = useState("");
-    const [mealKitImage, setMealKitImage] = useState([]);
     const mealKitsRef = useRef();
 
     const [page, setPage] = useState(1);
@@ -74,8 +73,6 @@ const MealKits = (props) => {
     const handlePageChange = (event, value) => {
         setPage(value);
     };
-
-    console.log(mealKitsList.at(0));
 
     return (
             <Box

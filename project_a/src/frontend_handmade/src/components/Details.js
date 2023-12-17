@@ -30,7 +30,7 @@ function renderRow(props) {
 
 export default function Details(props) {
 
-    const MealKitState = {
+    /*const MealKitState = {
         createdAt: "",
         modifiedAt: "",
         id: null,
@@ -42,14 +42,19 @@ export default function Details(props) {
         mprice: "",
         msite: "",
         mstock: null
-    };
+    };*/
 
-    const [mealKit, setMealKit] = useState(MealKitState);
+    const [mealKit, setMealKit] = useState([]);
+    const [mealKitImages, setMealKitImages] = useState([]);
 
     const getMealKit = id => {
         MealKitService.getMealKitDetail(id)
             .then((res) => {
-                setMealKit(res.data);
+                const { mealKit, mealKitImages } = res.data;
+
+                setMealKit(mealKit);
+                setMealKitImages(mealKitImages);
+
                 console.log(res.data)
             })
             .catch(e => {
@@ -69,11 +74,11 @@ export default function Details(props) {
         setValue(newValue);
     };
 
-    const items = [
-        <div style={{height: 450}}><img alt="" src={mealKit.mealKitImages.at(0)} style={{width:550, height:450}}/></div>,
-        <div style={{height: 450}}><img alt="" src={mealKit.mealKitImages.at(1)} style={{width:550, height:450}}/></div>,
-        <div style={{height: 450}}><img alt="" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400" style={{width:550, height:450}}/></div>
-    ]; // todo: mealKit.mealKitImages로 바꿀것.
+    const items =
+        mealKitImages.map( image => (
+            <div key={image.id} style={{height: 450}}><img alt="" src={image.imageUrl} style={{width: 550, height: 450}}/></div>
+        ));
+    //"https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400"
 
     const renderSlideInfo = ({ item, itemsCount }) => {
         return `${item}\\${itemsCount}`;
