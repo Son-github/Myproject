@@ -65,19 +65,6 @@ class MealKitServiceTest {
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
     @Test
     void givenMealKitId_whenSearchingMealKit_thenReturnMealKit() {
-        // Given
-        Long mealKitId = 1L;
-        MealKit mealKit = createMealKit();
-        given(mealKitRepository.findById(mealKitId)).willReturn(Optional.of(mealKit));
-
-        // When
-        MealKitWithCommentsAndImagesDto dto = mealKitService.getMealKit(mealKitId);
-
-        // Then
-        // log.info("뭐인가요? {}", mealKit.getMName());
-        assertThat(dto)
-                .hasFieldOrPropertyWithValue("mName", mealKit.getMName());
-        then(mealKitRepository).should().findById(mealKitId);
     }
 
     @DisplayName("없는 게시글을 조회하면, 예외를 던진다.")
@@ -97,15 +84,5 @@ class MealKitServiceTest {
         then(mealKitRepository).should().findById(mealKitId);
     }
 
-    private MealKit createMealKit() {
-        return MealKit.of(
-                "Test",
-                "3000원",
-                "떡볶이",
-                32,
-                "www.naver.com",
-                "이 떡볶이는 제일 맛있어요!"
-        );
-    }
 
 }

@@ -1,7 +1,7 @@
 import http from "../src/http-common"
 
 const getMealKits = (params) => {
-    return http.get("/mealKits", { params });
+    return http.get("/", { params });
 }
 
 const getMealKitDetail = (id) => {

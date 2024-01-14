@@ -12,7 +12,6 @@ public record MealKitWithCommentsAndImagesDto(
         String mName,
         int mPrice,
         String mCategory,
-        int mStock,
         Set<MealKitSiteDto> mealKitSiteDtos,
         String mContent,
         Set<MealKitImageDto> mealKitImageDtos,
@@ -22,10 +21,10 @@ public record MealKitWithCommentsAndImagesDto(
 ) {
 
     public static MealKitWithCommentsAndImagesDto of(Long id, String mName, int mPrice, String mCategory,
-                                                     int mStock, Set<MealKitSiteDto> mealKitSiteDtos, String mContent, Set<MealKitImageDto> mealKitImageDtos,
+                                                     Set<MealKitSiteDto> mealKitSiteDtos, String mContent, Set<MealKitImageDto> mealKitImageDtos,
                                                      Set<MealKitCommentDto> mealKitCommentDtos,
                                                      LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        return new MealKitWithCommentsAndImagesDto(id, mName, mPrice, mCategory, mStock, mealKitSiteDtos, mContent, mealKitImageDtos, mealKitCommentDtos, createdAt, modifiedAt);
+        return new MealKitWithCommentsAndImagesDto(id, mName, mPrice, mCategory, mealKitSiteDtos, mContent, mealKitImageDtos, mealKitCommentDtos, createdAt, modifiedAt);
     }
 
     public static MealKitWithCommentsAndImagesDto from(MealKit entity) {
@@ -34,7 +33,6 @@ public record MealKitWithCommentsAndImagesDto(
                 entity.getMName(),
                 entity.getMPrice(),
                 entity.getMCategory(),
-                entity.getMStock(),
                 entity.getMealKitSites().stream()
                         .map(MealKitSiteDto::from)
                         .collect(Collectors.toCollection(LinkedHashSet::new)),

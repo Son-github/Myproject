@@ -1,4 +1,4 @@
-package com.son.project_a.response;
+package com.son.project_a.dto.response;
 
 import com.son.project_a.dto.MealKitImageDto;
 

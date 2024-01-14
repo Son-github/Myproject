@@ -37,7 +37,7 @@ public class MealKitController {
     private Logger log = LoggerFactory.getLogger(MealKitController.class);
 
 
-    @GetMapping("mealKits")
+    @GetMapping("/")
     public Map<String, Object> mealKits(
             @RequestParam(value = "m_name",required = false) String searchValue,
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -55,8 +55,6 @@ public class MealKitController {
                 mealKitPage = mealKitRepository.findMealKitBymNameContaining(searchValue, pagination);
             }
 
-            log.info("Page<MealKitDto> searchMealKits: {}", mealKitService.searchMealKits(searchValue, pagination));
-
             mealKits = mealKitPage.getContent();
             Map<String, Object> response = new HashMap<String, Object>();
             response.put("mealKits", mealKits);
@@ -68,7 +66,7 @@ public class MealKitController {
         }
     }
 
-    @GetMapping("detail/{id}")
+    @GetMapping("/detail/{id}")
     public Map<String, Object> detailMealKits(@PathVariable("id") Long id) {
 
         Map<String, Object> response = new HashMap<String, Object>();
@@ -80,8 +78,10 @@ public class MealKitController {
 
         response.put("mealKit", mealKit);
         response.put("mealKitImages", mealKit.getMealKitImages());
+        response.put("mealKitSites", mealKit.getMealKitSites());
+        response.put("mealKitComments", mealKit.getMealKitComments());
 
-       log.info("mealKitImages: {}", mealKit.getMealKitImages() );
+        log.info("mealKitsImages: {}", mealKit.getMealKitImages());
 
         return response;
     }

@@ -10,13 +10,17 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.Optional;
+
 @RepositoryRestResource
 public interface UserAccountRepository extends
-        JpaRepository<UserAccount, Long>,
+        JpaRepository<UserAccount, String>,
         QuerydslPredicateExecutor<UserAccount>,
         QuerydslBinderCustomizer<QUserAccount> { // JpaRepository<도메인 객체, Id>를 상속
         boolean existsByUserEmail(String userEmail);
         boolean existsByUserPassword(String userPassword);
+
+        Optional<UserAccount> findByUserEmail(String email);
 
         @Override
         default void customize(QuerydslBindings bindings, QUserAccount root) {
@@ -28,7 +32,5 @@ public interface UserAccountRepository extends
                 bindings.bind(root.firstName).first(StringExpression::containsIgnoreCase);
                 bindings.bind(root.lastName).first(StringExpression::containsIgnoreCase);
                 bindings.bind(root.createdAt).first(DateTimeExpression::eq);
-
-
         };
 }

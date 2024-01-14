@@ -1,6 +1,5 @@
-package com.son.project_a.response;
+package com.son.project_a.dto.response;
 
-import com.son.project_a.dto.MealKitSiteDto;
 import com.son.project_a.dto.MealKitWithCommentsAndImagesDto;
 
 import java.io.Serializable;
@@ -14,7 +13,6 @@ public record MealKitWithCommentsAndImagesResponse(
         String mName,
         int mPrice,
         String mCategory,
-        int mStock,
         Set<MealKitSiteResponse> mealKitSiteResponses,
         String mContent,
         Set<MealKitImageResponse> mealKitImageResponses,
@@ -25,10 +23,10 @@ public record MealKitWithCommentsAndImagesResponse(
 ) implements Serializable {
 
     public static MealKitWithCommentsAndImagesResponse of(Long id, String mName, int mPrice, String mCategory,
-                                                 int mStock, Set<MealKitSiteResponse> mealKitSiteResponses, String mContent, Set<MealKitImageResponse> mealKitImageResponses,
+                                                 Set<MealKitSiteResponse> mealKitSiteResponses, String mContent, Set<MealKitImageResponse> mealKitImageResponses,
                                                  Set<MealKitCommentResponse> mealKitCommentResponses,
                                                  LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        return new MealKitWithCommentsAndImagesResponse(id, mName, mPrice, mCategory, mStock, mealKitSiteResponses, mContent, mealKitImageResponses, mealKitCommentResponses, createdAt, modifiedAt);
+        return new MealKitWithCommentsAndImagesResponse(id, mName, mPrice, mCategory, mealKitSiteResponses, mContent, mealKitImageResponses, mealKitCommentResponses, createdAt, modifiedAt);
     }
 
     public static MealKitWithCommentsAndImagesResponse from(MealKitWithCommentsAndImagesDto dto) {
@@ -37,7 +35,6 @@ public record MealKitWithCommentsAndImagesResponse(
                 dto.mName(),
                 dto.mPrice(),
                 dto.mCategory(),
-                dto.mStock(),
                 dto.mealKitSiteDtos()
                         .stream()
                         .map(MealKitSiteResponse::from)

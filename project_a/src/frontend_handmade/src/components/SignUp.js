@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from "axios";
 
+/*TODO: 닉네임과 이메일이 이미 있는지 아닌지 확인하는 기능넣기.*/
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,21 +34,7 @@ export default function SignUp() {
     const [last_Name, setLast_Name] = useState();
     const [user_Email, setUser_Email] = useState();
     const [user_Password, setUser_Password] = useState();
-
-    useEffect(() => {
-        getUser();
-    }, []);
-
-    async function getUser() {
-        await axios
-            .get('/signup')
-            .then((res) => {
-                console.log(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
+    const [nick_name, setNick_Name] = useState();
 
     const handleChange_firstName = (e) => {
         e.preventDefault();
@@ -68,6 +56,11 @@ export default function SignUp() {
         setUser_Password(e.target.value);
     }
 
+    const handleChange_Nickname = (e) => {
+        e.preventDefault();
+        setNick_Name(e.target.value);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -76,13 +69,14 @@ export default function SignUp() {
                 firstName: first_Name,
                 lastName: last_Name,
                 userEmail: user_Email,
-                userPassword: user_Password
+                userPassword: user_Password,
+                nickname: nick_name
             })
             .then((response) => {
                 console.log(response.data)
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error)
             })
     }
 
@@ -153,6 +147,19 @@ export default function SignUp() {
                                     autoComplete="new-password"
                                     value={user_Password}
                                     onChange={handleChange_userPassword}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="nickname"
+                                    label="Nickname"
+                                    type="nickname"
+                                    id="nickname"
+                                    autoComplete="new-nickname"
+                                    value={nick_name}
+                                    onChange={handleChange_Nickname}
                                 />
                             </Grid>
                             <Grid item xs={12}>

@@ -1,6 +1,9 @@
 package com.son.project_a.dto;
 
 import com.son.project_a.domain.UserAccount;
+import com.son.project_a.domain.constant.Authority;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -10,30 +13,29 @@ public record UserAccountDto(
         * 3번의 통신을 하지 않고 3개의 데이터를 담고있는 dto를 만들어 API 1번의 호출로 바꾸는 것.
         *
         * */
-        Long id,
         String userEmail,
         String userPassword,
         String firstName,
         String lastName,
+        String nickName,
         LocalDateTime createAt
 ) {
 
-
-    public static UserAccountDto of(String userEmail, String userPassword, String firstName, String lastName) {
-        return new UserAccountDto(null, userEmail, userPassword, firstName, lastName, null);
+    public static UserAccountDto of(String userEmail, String userPassword, String firstName, String lastName, String nickName) {
+        return new UserAccountDto( userEmail, userPassword, firstName, lastName, nickName,null);
     }
 
-    public static UserAccountDto of(Long id, String userEmail, String userPassword, String firstName, String lastName, LocalDateTime createAt) {
-        return new UserAccountDto(id, userEmail, userPassword, firstName, lastName, createAt);
+    public static UserAccountDto of( String userEmail, String userPassword, String firstName, String lastName, String nickName, LocalDateTime createAt) {
+        return new UserAccountDto(userEmail, userPassword, firstName, lastName, nickName, createAt);
     }
 
     public static UserAccountDto from(UserAccount entity) {
         return new UserAccountDto(
-                entity.getId(),
                 entity.getUserEmail(),
                 entity.getUserPassword(),
                 entity.getFirstName(),
                 entity.getLastName(),
+                entity.getNickName(),
                 entity.getCreatedAt()
         );
     }
@@ -43,7 +45,8 @@ public record UserAccountDto(
                 userEmail,
                 userPassword,
                 firstName,
-                lastName
+                lastName,
+                nickName
         );
-    }
+    } //TODO: 인증을 Authority.ROLE_USER이 Default되도록 해놓음.. 공부하고 바꾸기
 }

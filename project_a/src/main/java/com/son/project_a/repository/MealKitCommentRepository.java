@@ -20,6 +20,8 @@ public interface MealKitCommentRepository extends
 
     List<MealKitComment> findByMealKitId(Long id);
 
+    void deleteByIdAndUserAccount_UserEmail(Long mealKitCommentId, String userEmail);
+
     @Override
     default void customize(QuerydslBindings bindings, QMealKitComment root) {
         bindings.excludeUnlistedProperties(true);
@@ -28,6 +30,4 @@ public interface MealKitCommentRepository extends
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
     }
-
-
 }

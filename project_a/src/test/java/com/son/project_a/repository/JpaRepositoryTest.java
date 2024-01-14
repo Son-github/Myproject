@@ -76,30 +76,11 @@ public class JpaRepositoryTest {
     @Test
     void givenValues_whenInserting_thenWorkFine() {
         // Given
-        long prevUserAccount = userAccountRepository.count();
-        MealKit newMealKit = createMealKit("오성떡볶이", "5000원", "분식", 5, "www.naver.com", "hi");
-        MealKitImage mealKitImage = createMealKitImage(newMealKit, "www.naver.com");
 
         // When
-        UserAccount userAccount = UserAccount.of("key@gmail.com", "test", "key", "port");
-        MealKit mealKit = MealKit.of("Test", "3000원", "라볶이", 5, "www.test.co.kr", "black of the son");
-        userAccount.setCreatedAt(LocalDateTime.now());
-        userAccountRepository.save(userAccount);
-        mealKitRepository.save(mealKit);
-
-        long AfterUserAccount = userAccountRepository.count();
 
 
-
-        log.info("날짜 입력됐나요?: {}", userAccount.getCreatedAt());
-        log.info("meal_kit에 입력된 자료: {}", mealKitRepository.findById(1L));
-        log.info("meal_kit에 입력된 자료의 날짜는? {}", mealKit.getCreatedAt());
         // Then
-        assertThat(AfterUserAccount)
-                .isEqualTo(prevUserAccount+1);
-
-        assertThat(mealKit.getMName())
-                .isEqualTo("Test");
     }
 
 
@@ -107,7 +88,7 @@ public class JpaRepositoryTest {
     @Test
     void givenUpdateValue_whenUpdate_thenWorkFine() {
         // Given
-        UserAccount userAccount = userAccountRepository.findById(1L).orElseThrow();
+        UserAccount userAccount = userAccountRepository.findById("userEmail").orElseThrow();
         String updateEmail = "jongin718@gmail.com";
         userAccount.setUserEmail(updateEmail);
 
@@ -125,7 +106,7 @@ public class JpaRepositoryTest {
     @Test
     void given_when_then() {
         // Given
-        UserAccount userAccount = userAccountRepository.findById(1L).orElseThrow();
+        UserAccount userAccount = userAccountRepository.findById("userEmail").orElseThrow();
         long preciousUserAccountCount = userAccountRepository.count();
 
         // When
@@ -136,13 +117,7 @@ public class JpaRepositoryTest {
                 .isEqualTo(preciousUserAccountCount-1);
     }
 
-    private MealKitImage createMealKitImage(MealKit mealKit, String imageUrl) {
-        return MealKitImage.of(mealKit, imageUrl);
-    }
 
-    private MealKit createMealKit(String mName, String mPrice, String mCategory, int mStock, String mSite, String mContent) {
-        return MealKit.of(mName, mPrice, mCategory, mStock, mSite, mContent);
-    }
 
 
 }

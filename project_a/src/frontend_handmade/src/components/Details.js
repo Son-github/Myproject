@@ -2,58 +2,36 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import Stack from "@mui/joy/Stack";
-import {Tab} from "@mui/material";
+import {Divider, ImageList, ImageListItem} from "@mui/material";
 import HeaderSection from "./HeaderSection";
 import Typography from "@mui/joy/Typography";
-import {ListItemButton, Table} from "@mui/joy";
+import {ListItemButton, Table, Textarea} from "@mui/joy";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
-import {FixedSizeList} from 'react-window';
 import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
-import TabContext from "@mui/lab/TabContext";
-import {TabList, TabPanel} from "@mui/lab";
 import MealKitService from "../MealKitService";
 import {useParams} from "react-router-dom";
-
-function renderRow(props) {
-    const { index, style } = props;
-
-    return (
-        <ListItem style={style} key={index} component="div" disablePadding>
-            <ListItemButton>
-                <ListItemText primary={`Item ${index + 1}`} />
-            </ListItemButton>
-        </ListItem>
-    );
-}
+import List from "@mui/material/List";
+import Button from '@mui/material-next/Button';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function Details(props) {
 
-    /*const MealKitState = {
-        createdAt: "",
-        modifiedAt: "",
-        id: null,
-        mcategory: "",
-        mcontent: "",
-        mealKitComments: [],
-        mealKitImages: [],
-        mname: "",
-        mprice: "",
-        msite: "",
-        mstock: null
-    };*/
-
     const [mealKit, setMealKit] = useState([]);
     const [mealKitImages, setMealKitImages] = useState([]);
+    const [mealKitSites, setMealKitSites] = useState([]);
+    const [mealKitComments, setMealKitComments] = useState([]);
 
     const getMealKit = id => {
         MealKitService.getMealKitDetail(id)
             .then((res) => {
-                const { mealKit, mealKitImages } = res.data;
+                const { mealKit, mealKitImages, mealKitSites, mealKitComments } = res.data;
 
                 setMealKit(mealKit);
                 setMealKitImages(mealKitImages);
+                setMealKitSites(mealKitSites);
+                setMealKitComments(mealKitComments)
 
                 console.log(res.data)
             })
@@ -68,17 +46,10 @@ export default function Details(props) {
         getMealKit(id);
     }, [id]);
 
-    const [value, setValue] = React.useState('1'); // todo: site 넣기
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
     const items =
         mealKitImages.map( image => (
             <div key={image.id} style={{height: 450}}><img alt="" src={image.imageUrl} style={{width: 550, height: 450}}/></div>
         ));
-    //"https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400"
 
     const renderSlideInfo = ({ item, itemsCount }) => {
         return `${item}\\${itemsCount}`;
@@ -106,6 +77,12 @@ export default function Details(props) {
             renderNextButton={renderNextButton}
         />
     );
+
+    console.log("mealKitComment: " + mealKitComments);
+
+    mealKitComments.map((comment) => (
+        console.log(comment)
+    ));
 
     return (
         <Box
@@ -138,7 +115,7 @@ export default function Details(props) {
                             noWrap={false}
                             variant="plain"
                         >
-                            {mealKit.mcategory}
+                            {mealKit.mcontent}
                         </Typography>
                         <Typography
                             color="neutral"
@@ -153,59 +130,102 @@ export default function Details(props) {
                             <tbody>
                                 <tr>
                                     <td>판매 단위</td>
-                                    <td>159</td>
+                                    <td>{mealKit.msaleUnit}</td>
 
                                 </tr>
                                 <tr>
                                     <td>판매자</td>
-                                    <td>237</td>
+                                    <td>{mealKit.msaleCompany}</td>
 
                                 </tr>
                                 <tr>
                                     <td>중량/용량</td>
-                                    <td>262</td>
-
-                                </tr>
-                                <tr>
-                                    <td>알레르기 정보</td>
-                                    <td>305</td>
+                                    <td>{mealKit.mweight}</td>
 
                                 </tr>
                             </tbody>
                         </Table>
                         <Box
-                            sx={{ width: '100%', height: 400, maxWidth: 360, pt: 5}}
+                            sx={{pt: 3, px: -2, width: '100%', height: 400, maxWidth: 550, bgcolor: 'background.paper' }}
                         >
-                            <FixedSizeList
-                                height={250}
-                                width={550}
-                                itemSize={46}
-                                itemCount={10}
-                                overscanCount={5}
+                            <List
+                                sx={{
+                                    width: '100%',
+                                    Width: 550,
+                                    bgcolor: 'background.paper',
+                                    position: 'relative',
+                                    overflow: 'auto',
+                                    maxHeight: 300,
+                                    '& ul': { padding: 0 },
+                                }}
                             >
-                                {renderRow}
-                            </FixedSizeList>
+                                    <li>
+                                            {mealKitSites.map((item) => (
+                                                <ul key={item.id}>
+                                                    <ListItem >
+                                                        <ListItemButton onClick={()=> window.open(item.siteUrl)}>
+                                                            <ListItemText primary={item.siteName} />
+                                                            <ListItemText secondary={item.sitePrice} />
+                                                        </ListItemButton>
+                                                    </ListItem>
+                                                </ul>
+                                            ))}
+                                    </li>
+                            </List>
                         </Box>
                     </Box>
                 </Stack>
-                <TabContext value={value}>
+                <Box sx={{ px: { xs: 2, md: 20}, pt: 3, justifyContent: 'center' }}>
+                    <Divider>후기</Divider>
                     <Box sx={{ px: { xs: 2, md: 20 }, pt: 3, justifyContent: 'center' }}>
-                            <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-                                <TabList
-                                    onChange={handleChange}
-                                    centered={true}
-                                    variant="fullWidth"
-                                >
-                                    <Tab label="상품설명" value="1" />
-                                    <Tab label="상세정보" value="2" />
-                                    <Tab label="후기" value="3" />
-                                </TabList>
-                            </Box>
-                            <TabPanel value="1">Item One</TabPanel>
-                            <TabPanel value="2">Item Two</TabPanel>
-                            <TabPanel value="3">Item Three</TabPanel>
+                        <Divider/> {/*TODO comments 도메인에 nickname 추가!*/}
+                        {mealKitComments.map((comments) => (
+                            <Stack direction="row" spacing={5} sx={{ px: { xs: 2}, pt: 3 }} key={comments.id}>
+                                <Box sx={{width: 100}}>
+                                    <Typography>aa</Typography>
+                                </Box>
+                                <Box sx={{width: 670, height: 300}}>
+                                    <Stack spacing={3} sx={{px: {xs: 2}, width: 600, height: 200, whiteSpace: 'pre-line'}}>
+                                        <Typography variant="h6">MealKitName</Typography>
+                                        <Typography sx={{px: {xs: 1}}}>MealKitComment</Typography>
+                                    </Stack>
+                                    <ImageList sx={{ px: { xs: 2 }, width: 500, height: 110 }} cols={3} rowHeight={100}>
+                                        {mealKitImages.map((item) => (
+                                            <ImageListItem key={item.id}>
+                                                <img
+                                                    srcSet={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                    src={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format`}
+                                                    alt={item.imageUrl}
+                                                    loading="lazy"
+                                                />
+                                            </ImageListItem>
+                                        ))}
+                                    </ImageList>
+                                    <Box sx={{width: 660}}>
+                                        <Button
+                                            style={{
+                                                float: "right"
+                                            }}
+                                            color="secondary"
+                                            disabled={false}
+                                            size="small"
+                                        >
+                                            <ThumbUpIcon
+                                                style={{
+                                                    width: 18,
+                                                    height: 18
+                                                }}
+                                            />
+                                        </Button>
+                                    </Box>
+                                    <Box sx={{ px: {xs: 4}, pt: 5}}>
+                                        <Typography style={{ float: "right", fontSize: "small"}}>{mealKit.createdAt}</Typography>
+                                    </Box>
+                                </Box>
+                            </Stack>
+                        ))}
                     </Box>
-                </TabContext>
+                </Box>
             </Box>
         </Box>
     );

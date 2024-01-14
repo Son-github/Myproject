@@ -21,17 +21,19 @@ public class QUserAccount extends EntityPathBase<UserAccount> {
 
     public final QAuditingFields _super = new QAuditingFields(this);
 
+    public final EnumPath<com.son.project_a.domain.constant.Authority> authority = createEnum("authority", com.son.project_a.domain.constant.Authority.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     public final StringPath firstName = createString("firstName");
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
-
     public final StringPath lastName = createString("lastName");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
+
+    public final StringPath nickName = createString("nickName");
 
     public final StringPath userEmail = createString("userEmail");
 

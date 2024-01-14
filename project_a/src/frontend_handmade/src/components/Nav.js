@@ -23,7 +23,7 @@ function Nav() {
     }
 
     const toGoHome = () => {
-        navigate("/mealKits")
+        navigate("/")
     };
 
     const toGoSignup = () => {

@@ -20,25 +20,26 @@ public class MealKitComment extends AuditingFields{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 1000) private String title;
     @ManyToOne(optional = false) @JsonIgnore // @JsonIgnore를 넣는 이유는 Infinite recursion 문제가 생기기 때문에 넣는다.
     private MealKit mealKit; // 밀키트(ID)
-    @ManyToOne(optional = false) @JsonIgnore
+    @ManyToOne(optional = false) @JoinColumn(name = "userEmail") @JsonIgnore
     private UserAccount userAccount; // 작성자(ID)
+    @Column(length = 1000) private String title;
     @Column(length = 60000) private String content;
     @OneToMany(mappedBy = "mealKitComment", cascade = CascadeType.ALL)
     private Set<MealKitCommentImage> mealKitCommentImages = new LinkedHashSet<>();
 
     protected MealKitComment() {}
 
-    private MealKitComment(MealKit mealKit, UserAccount userAccount, String content) {
+    private MealKitComment(MealKit mealKit, UserAccount userAccount, String title, String content) {
         this.userAccount = userAccount;
         this.mealKit = mealKit;
+        this.title = title;
         this.content = content;
     }
 
-    public static MealKitComment of(MealKit mealKit, UserAccount userAccount, String content) {
-        return new MealKitComment(mealKit, userAccount, content);
+    public static MealKitComment of(MealKit mealKit, UserAccount userAccount, String title, String content) {
+        return new MealKitComment(mealKit, userAccount, title, content);
     }
 
     @Override

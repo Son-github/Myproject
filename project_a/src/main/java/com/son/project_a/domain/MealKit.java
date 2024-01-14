@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MealKit extends AuditingFields {
+public class MealKit extends AuditingFields { //TODO: 칼럼 구체화
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,10 +24,14 @@ public class MealKit extends AuditingFields {
     private int mPrice;
     @Column
     private String mCategory;
-    @Column
-    private int mStock;
     @Column(length = 65535)
     private String mContent;
+    @Column
+    private int mSaleUnit; // 판매 단위
+    @Column
+    private String mSaleCompany; // 판매사
+    @Column
+    private int mWeight; // 판매중량
 
     @ToString.Exclude
     @OrderBy("createdAt desc")
@@ -48,16 +52,18 @@ public class MealKit extends AuditingFields {
     protected MealKit() {
     }
 
-    public MealKit(String mName, int mPrice, String mCategory, int mStock, String mContent) {
+    public MealKit(String mName, int mPrice, String mCategory, String mContent, int mSaleUnit, String mSaleCompany, int mWeight) {
         this.mName = mName;
         this.mPrice = mPrice;
         this.mCategory = mCategory;
-        this.mStock = mStock;
         this.mContent = mContent;
+        this.mSaleUnit = mSaleUnit;
+        this.mSaleCompany = mSaleCompany;
+        this.mWeight = mWeight;
     }
 
-    public static MealKit of(String mName, int mPrice, String mCategory, int mStock, String mContent) {
-        return new MealKit(mName, mPrice, mCategory, mStock, mContent);
+    public static MealKit of(String mName, int mPrice, String mCategory,String mContent, int mSaleUnit, String mSaleCompany, int mWeight) {
+        return new MealKit(mName, mPrice, mCategory, mContent, mSaleUnit, mSaleCompany,mWeight);
     }
 
     @Override

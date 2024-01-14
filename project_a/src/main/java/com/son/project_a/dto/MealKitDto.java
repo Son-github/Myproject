@@ -9,26 +9,29 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record MealKitDto(
-
         Long id,
         String mName,
         int mPrice,
         String mCategory,
-        int mStock,
-        Set<MealKitSiteDto> mealKitSiteDtos,
         String mContent,
+        int mSaleUnit,
+        String mSaleCompany,
+        int mWeight,
+        Set<MealKitSiteDto> mealKitSiteDtos,
         Set<MealKitImageDto> mealKitImageDtos,
         LocalDateTime createAt,
         LocalDateTime modifiedAt
 ) {
 
     public static MealKitDto of(
-            String mName, int mPrice, String mCategory,
-            int mStock, Set<MealKitSiteDto> mealKitSiteDtos, String mContent, Set<MealKitImageDto> mealKitImageDtos
+            String mName, int mPrice, String mCategory, String mContent,
+            int mSaleUnit,  String mSaleCompany, int mWeight, Set<MealKitSiteDto> mealKitSiteDtos,
+            Set<MealKitImageDto> mealKitImageDtos
     ){
         return new MealKitDto(
-                null, mName, mPrice, mCategory, mStock,
-                mealKitSiteDtos, mContent, mealKitImageDtos, null, null);
+                null, mName, mPrice, mCategory,
+                mContent, mSaleUnit, mSaleCompany,
+                mWeight, mealKitSiteDtos, mealKitImageDtos, null, null);
     }
 
     public static MealKitDto from(MealKit entity) {
@@ -37,11 +40,13 @@ public record MealKitDto(
                 entity.getMName(),
                 entity.getMPrice(),
                 entity.getMCategory(),
-                entity.getMStock(),
+                entity.getMContent(),
+                entity.getMSaleUnit(),
+                entity.getMSaleCompany(),
+                entity.getMWeight(),
                 entity.getMealKitSites().stream()
                         .map(MealKitSiteDto::from)
                         .collect(Collectors.toCollection(LinkedHashSet::new)),
-                entity.getMContent(),
                 entity.getMealKitImages().stream()
                                 .map(MealKitImageDto::from)
                                 .collect(Collectors.toCollection(LinkedHashSet::new)),
@@ -55,8 +60,10 @@ public record MealKitDto(
                 mName,
                 mPrice,
                 mCategory,
-                mStock,
-                mContent
+                mContent,
+                mSaleUnit,
+                mSaleCompany,
+                mWeight
         );
     }
 }

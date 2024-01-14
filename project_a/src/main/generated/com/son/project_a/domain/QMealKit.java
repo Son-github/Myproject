@@ -44,7 +44,11 @@ public class QMealKit extends EntityPathBase<MealKit> {
 
     public final NumberPath<Integer> mPrice = createNumber("mPrice", Integer.class);
 
-    public final NumberPath<Integer> mStock = createNumber("mStock", Integer.class);
+    public final StringPath mSaleCompany = createString("mSaleCompany");
+
+    public final NumberPath<Integer> mSaleUnit = createNumber("mSaleUnit", Integer.class);
+
+    public final NumberPath<Integer> mWeight = createNumber("mWeight", Integer.class);
 
     public QMealKit(String variable) {
         super(MealKit.class, forVariable(variable));
