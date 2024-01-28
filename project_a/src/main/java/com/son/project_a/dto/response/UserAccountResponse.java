@@ -1,6 +1,5 @@
 package com.son.project_a.dto.response;
 
-import com.son.project_a.domain.UserAccount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,20 +9,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserAccountResponseDto{
+public class UserAccountResponse {
     private String userEmail;
-    private String nickname;
-    private String firstname;
-    private String lastname;
+    private String token;
 
-    public static UserAccountResponseDto of(UserAccount userAccount) { // Response를 보낼 때 쓰이는 dto
+/*    public static UserAccountResponseDto of(UserAccount userAccount) { // Response를 보낼 때 쓰이는 dto
         return UserAccountResponseDto.builder()
                 .userEmail(userAccount.getUserEmail())
                 .nickname(userAccount.getNickName())
                 .firstname(userAccount.getFirstName())
                 .lastname(userAccount.getLastName())
                 .build();
-    }
+    }*/
 }
 /*public record UserAccountResponseDto(
         String userEmail,

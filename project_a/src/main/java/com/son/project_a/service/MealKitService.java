@@ -1,14 +1,12 @@
 package com.son.project_a.service;
 
 
-import com.son.project_a.domain.constant.SearchType;
 import com.son.project_a.dto.MealKitDto;
 import com.son.project_a.dto.MealKitWithCommentsAndImagesDto;
 import com.son.project_a.repository.MealKitRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

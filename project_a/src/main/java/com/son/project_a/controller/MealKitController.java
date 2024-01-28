@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
-@RequiredArgsConstructor
-//@RequestMapping("/mealKits") 여기에 있는 메소드들이 똑같은 주소에서 된다면 이걸 쓰면 된다.
+@RequiredArgsConstructor // @RequestMapping("/mealKits") 여기에 있는 메소드들이 똑같은 주소에서 된다면 이걸 쓰면 된다.
 @ResponseBody
 @RestController
 public class MealKitController {
@@ -37,7 +36,7 @@ public class MealKitController {
     private Logger log = LoggerFactory.getLogger(MealKitController.class);
 
 
-    @GetMapping("/")
+    @GetMapping("/mealKits")
     public Map<String, Object> mealKits(
             @RequestParam(value = "m_name",required = false) String searchValue,
             @RequestParam(value = "page", defaultValue = "0") int page,
